@@ -1,0 +1,932 @@
+{
+  "schemaVersion": 1,
+  "generatedDate": "2026-07-19",
+  "root": "brainstorm/municipal/02-safeheat",
+  "files": [
+    {
+      "path": "data\\raw\\austin_facilities_demo_subset_2026-07-19.csv",
+      "format": "csv",
+      "bytes": 3791,
+      "sha256": "12b9289f8bee00bfb05a4fd60d9cd169fdba4df8575deb80c6610c6d9f0018af",
+      "rowCount": 11,
+      "columnCount": 13,
+      "columns": [
+        {
+          "name": "source_dataset_id",
+          "nonNullCount": 11,
+          "nullCount": 0,
+          "distinctNonNullCount": 3,
+          "observedTypes": ["text"],
+          "samples": ["8dff-2vkt", "tc36-hn4j", "xaxa-886r"]
+        },
+        {
+          "name": "source_record_type",
+          "nonNullCount": 11,
+          "nullCount": 0,
+          "distinctNonNullCount": 3,
+          "observedTypes": ["text"],
+          "samples": ["recreation_center", "library", "aquatic_amenity"]
+        },
+        {
+          "name": "name",
+          "nonNullCount": 11,
+          "nullCount": 0,
+          "distinctNonNullCount": 11,
+          "observedTypes": ["text"],
+          "samples": [
+            "Dottie Jordan Recreation Center",
+            "George Morales Dove Springs Recreation Center",
+            "Alamo Recreation Center"
+          ]
+        },
+        {
+          "name": "address",
+          "nonNullCount": 11,
+          "nullCount": 0,
+          "distinctNonNullCount": 9,
+          "observedTypes": ["text"],
+          "samples": ["2803 Loyola Ln.", "5801 Ainez Dr.", "2100 Alamo St."]
+        },
+        {
+          "name": "city",
+          "nonNullCount": 11,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["text"],
+          "samples": ["Austin"]
+        },
+        {
+          "name": "state",
+          "nonNullCount": 11,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["text"],
+          "samples": ["TX"]
+        },
+        {
+          "name": "zip",
+          "nonNullCount": 9,
+          "nullCount": 2,
+          "distinctNonNullCount": 8,
+          "observedTypes": ["integer"],
+          "samples": ["78723", "78744", "78722"]
+        },
+        {
+          "name": "latitude",
+          "nonNullCount": 11,
+          "nullCount": 0,
+          "distinctNonNullCount": 11,
+          "observedTypes": ["number"],
+          "samples": ["30.314377", "30.187717", "30.282633"]
+        },
+        {
+          "name": "longitude",
+          "nonNullCount": 11,
+          "nullCount": 0,
+          "distinctNonNullCount": 11,
+          "observedTypes": ["number"],
+          "samples": ["-97.673367", "-97.739513", "-97.719847"]
+        },
+        {
+          "name": "phone",
+          "nonNullCount": 11,
+          "nullCount": 0,
+          "distinctNonNullCount": 10,
+          "observedTypes": ["text"],
+          "samples": ["(512) 978-2380", "(512) 974-3840", "(512) 974-5680"]
+        },
+        {
+          "name": "website",
+          "nonNullCount": 11,
+          "nullCount": 0,
+          "distinctNonNullCount": 11,
+          "observedTypes": ["text", "url"],
+          "samples": [
+            "https://www.austintexas.gov/department/dottie-jordan-recreation-center",
+            "https://www.austintexas.gov/department/george-morales-dove-springs-recreation-center",
+            "https://www.austintexas.gov/department/alamo-recreation-center"
+          ]
+        },
+        {
+          "name": "source_url",
+          "nonNullCount": 11,
+          "nullCount": 0,
+          "distinctNonNullCount": 3,
+          "observedTypes": ["url"],
+          "samples": [
+            "https://data.austintexas.gov/Locations-and-Maps/Recreation-Centers/8dff-2vkt",
+            "https://data.austintexas.gov/Locations-and-Maps/Austin-Public-Library-Locations/tc36-hn4j",
+            "https://data.austintexas.gov/Locations-and-Maps/Austin-Pool-Schedule/xaxa-886r"
+          ]
+        },
+        {
+          "name": "notes",
+          "nonNullCount": 11,
+          "nullCount": 0,
+          "distinctNonNullCount": 8,
+          "observedTypes": ["text"],
+          "samples": [
+            "Exact public inventory record used by the synthetic disruption scenario. Operational status is not sourced from this record.",
+            "Exact public inventory record; synthetic event status in demo.",
+            "Exact public inventory record; not a complete recreation-center download."
+          ]
+        }
+      ]
+    },
+    {
+      "path": "data\\raw\\austin_heat_health_snapshot_published_2026-07-13.json",
+      "format": "json",
+      "bytes": 697,
+      "sha256": "411af38f2a2cf4426874bae6879bcfc27c40c0251c711cf5d97c225d97a1e6eb",
+      "rootType": "object",
+      "topLevelFields": [
+        {
+          "name": "source",
+          "type": "string",
+          "size": 49
+        },
+        {
+          "name": "sourceUrl",
+          "type": "string",
+          "size": 62
+        },
+        {
+          "name": "coverageStart",
+          "type": "string",
+          "size": 10
+        },
+        {
+          "name": "coverageEnd",
+          "type": "string",
+          "size": 10
+        },
+        {
+          "name": "publishedAt",
+          "type": "string",
+          "size": 25
+        },
+        {
+          "name": "retrievedDate",
+          "type": "string",
+          "size": 10
+        },
+        {
+          "name": "heatAdvisoriesOrWarnings",
+          "type": "integer",
+          "size": null
+        },
+        {
+          "name": "heatRelatedDeaths",
+          "type": "integer",
+          "size": null
+        },
+        {
+          "name": "emergencyDepartmentVisits",
+          "type": "integer",
+          "size": null
+        },
+        {
+          "name": "emsRecords",
+          "type": "integer",
+          "size": null
+        },
+        {
+          "name": "extendedHoursActivations",
+          "type": "integer",
+          "size": null
+        },
+        {
+          "name": "spatialLevel",
+          "type": "string",
+          "size": 68
+        },
+        {
+          "name": "caveat",
+          "type": "string",
+          "size": 150
+        }
+      ]
+    },
+    {
+      "path": "data\\raw\\austin_public_library_locations_tc36-hn4j_normalized_2026-07-19.csv",
+      "format": "csv",
+      "bytes": 12119,
+      "sha256": "45d2ce08446c0e1a4d465d1f67746c571cf5f69fb3cff320e18e37b83e418991",
+      "rowCount": 23,
+      "columnCount": 18,
+      "columns": [
+        {
+          "name": "source_name",
+          "nonNullCount": 23,
+          "nullCount": 0,
+          "distinctNonNullCount": 23,
+          "observedTypes": ["text"],
+          "samples": [
+            "Austin History Center - John Henry Faulk Building",
+            "Carver Branch",
+            "Central Library"
+          ]
+        },
+        {
+          "name": "address",
+          "nonNullCount": 23,
+          "nullCount": 0,
+          "distinctNonNullCount": 23,
+          "observedTypes": ["text"],
+          "samples": ["800 Guadalupe St", "1161 Angelina St", "710 W Cesar Chavez St"]
+        },
+        {
+          "name": "city",
+          "nonNullCount": 23,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["text"],
+          "samples": ["Austin"]
+        },
+        {
+          "name": "state",
+          "nonNullCount": 23,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["text"],
+          "samples": ["TX"]
+        },
+        {
+          "name": "zip",
+          "nonNullCount": 23,
+          "nullCount": 0,
+          "distinctNonNullCount": 16,
+          "observedTypes": ["integer"],
+          "samples": ["78701", "78702", "78758"]
+        },
+        {
+          "name": "latitude",
+          "nonNullCount": 23,
+          "nullCount": 0,
+          "distinctNonNullCount": 23,
+          "observedTypes": ["number"],
+          "samples": ["30.271709981", "30.269948021", "30.266101984"]
+        },
+        {
+          "name": "longitude",
+          "nonNullCount": 23,
+          "nullCount": 0,
+          "distinctNonNullCount": 23,
+          "observedTypes": ["number"],
+          "samples": ["-97.74589002", "-97.724265967", "-97.751692979"]
+        },
+        {
+          "name": "phone",
+          "nonNullCount": 23,
+          "nullCount": 0,
+          "distinctNonNullCount": 23,
+          "observedTypes": ["text"],
+          "samples": ["512-974-7480", "512-974-1010", "512-974-7400"]
+        },
+        {
+          "name": "council_district",
+          "nonNullCount": 23,
+          "nullCount": 0,
+          "distinctNonNullCount": 10,
+          "observedTypes": ["integer"],
+          "samples": ["9", "1", "4"]
+        },
+        {
+          "name": "wifi",
+          "nonNullCount": 23,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["boolean_like"],
+          "samples": ["Yes"]
+        },
+        {
+          "name": "public_computers",
+          "nonNullCount": 23,
+          "nullCount": 0,
+          "distinctNonNullCount": 18,
+          "observedTypes": ["integer"],
+          "samples": ["2", "26", "128"]
+        },
+        {
+          "name": "lending_devices",
+          "nonNullCount": 2,
+          "nullCount": 21,
+          "distinctNonNullCount": 2,
+          "observedTypes": ["integer"],
+          "samples": ["67", "8"]
+        },
+        {
+          "name": "digital_literacy_training",
+          "nonNullCount": 23,
+          "nullCount": 0,
+          "distinctNonNullCount": 2,
+          "observedTypes": ["boolean_like"],
+          "samples": ["Yes", "No"]
+        },
+        {
+          "name": "location_url",
+          "nonNullCount": 23,
+          "nullCount": 0,
+          "distinctNonNullCount": 23,
+          "observedTypes": ["url"],
+          "samples": [
+            "https://library.austintexas.gov/ahc",
+            "https://library.austintexas.gov/carver",
+            "https://library.austintexas.gov/central"
+          ]
+        },
+        {
+          "name": "dataset_id",
+          "nonNullCount": 23,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["text"],
+          "samples": ["tc36-hn4j"]
+        },
+        {
+          "name": "source_api",
+          "nonNullCount": 23,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["url"],
+          "samples": ["https://data.austintexas.gov/resource/tc36-hn4j.json?$limit=5000"]
+        },
+        {
+          "name": "snapshot_method",
+          "nonNullCount": 23,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["text"],
+          "samples": [
+            "Normalized complete snapshot reconstructed from the official downloadable JSON response inspected 2026-07-19; run scripts/fetch_sources.py for byte-for-byte raw refresh."
+          ]
+        },
+        {
+          "name": "operational_warning",
+          "nonNullCount": 23,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["text"],
+          "samples": [
+            "Inventory only. Does not prove current hours, HVAC, capacity, event participation, or verified-open cooling access."
+          ]
+        }
+      ]
+    },
+    {
+      "path": "data\\raw\\austin_recreation_centers_8dff-2vkt_normalized_2026-07-19.csv",
+      "format": "csv",
+      "bytes": 10930,
+      "sha256": "0a6b48c985408707361460db7bda3f3d12e015fedda5b576b0938bf0384c6d0f",
+      "rowCount": 20,
+      "columnCount": 13,
+      "columns": [
+        {
+          "name": "source_name",
+          "nonNullCount": 20,
+          "nullCount": 0,
+          "distinctNonNullCount": 20,
+          "observedTypes": ["text"],
+          "samples": [
+            "Alamo Recreation",
+            "Dottie Jordan Recreation Center",
+            "Lorraine \"Grandma\" Camacho Activity Center"
+          ]
+        },
+        {
+          "name": "address",
+          "nonNullCount": 20,
+          "nullCount": 0,
+          "distinctNonNullCount": 20,
+          "observedTypes": ["text"],
+          "samples": ["2100 Alamo St", "2803 Loyola Ln", "35 Robert Martinez Jr St"]
+        },
+        {
+          "name": "city",
+          "nonNullCount": 20,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["text"],
+          "samples": ["Austin"]
+        },
+        {
+          "name": "state",
+          "nonNullCount": 20,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["text"],
+          "samples": ["TX"]
+        },
+        {
+          "name": "zip",
+          "nonNullCount": 20,
+          "nullCount": 0,
+          "distinctNonNullCount": 16,
+          "observedTypes": ["integer"],
+          "samples": ["78722", "78723", "78702"]
+        },
+        {
+          "name": "phone",
+          "nonNullCount": 20,
+          "nullCount": 0,
+          "distinctNonNullCount": 20,
+          "observedTypes": ["text"],
+          "samples": ["(512) 974-5680", "(512) 978-2380", "(512) 978-2420"]
+        },
+        {
+          "name": "location_url",
+          "nonNullCount": 20,
+          "nullCount": 0,
+          "distinctNonNullCount": 20,
+          "observedTypes": ["url"],
+          "samples": [
+            "https://www.austintexas.gov/department/alamo-recreation-center",
+            "https://www.austintexas.gov/department/dottie-jordan-recreation-center",
+            "https://www.austintexas.gov/department/lorraine-grandma-camacho-activity-center"
+          ]
+        },
+        {
+          "name": "latitude",
+          "nonNullCount": 20,
+          "nullCount": 0,
+          "distinctNonNullCount": 20,
+          "observedTypes": ["number"],
+          "samples": ["30.282633", "30.314377", "30.250098"]
+        },
+        {
+          "name": "longitude",
+          "nonNullCount": 20,
+          "nullCount": 0,
+          "distinctNonNullCount": 20,
+          "observedTypes": ["number"],
+          "samples": ["-97.719847", "-97.673367", "-97.723303"]
+        },
+        {
+          "name": "dataset_id",
+          "nonNullCount": 20,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["text"],
+          "samples": ["8dff-2vkt"]
+        },
+        {
+          "name": "source_api",
+          "nonNullCount": 20,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["url"],
+          "samples": ["https://data.austintexas.gov/resource/8dff-2vkt.json?$limit=5000"]
+        },
+        {
+          "name": "snapshot_method",
+          "nonNullCount": 20,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["text"],
+          "samples": [
+            "Normalized complete snapshot reconstructed from the official downloadable JSON response inspected 2026-07-19; run scripts/fetch_sources.py for byte-for-byte raw refresh."
+          ]
+        },
+        {
+          "name": "operational_warning",
+          "nonNullCount": 20,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["text"],
+          "samples": [
+            "Inventory only. Does not prove current hours, HVAC, capacity, event participation, or verified-open cooling access."
+          ]
+        }
+      ]
+    },
+    {
+      "path": "data\\raw\\austin_senior_activity_centers_2026-07-19.csv",
+      "format": "csv",
+      "bytes": 1117,
+      "sha256": "324fac0185f675e8b0266410bc711f4ea6d9cdc2cde5d7c233368be5286bb025",
+      "rowCount": 3,
+      "columnCount": 10,
+      "columns": [
+        {
+          "name": "name",
+          "nonNullCount": 3,
+          "nullCount": 0,
+          "distinctNonNullCount": 3,
+          "observedTypes": ["text"],
+          "samples": [
+            "Conley-Guerrero Senior Activity Center",
+            "Senior Activity Center - Lamar",
+            "South Austin Senior Activity Center"
+          ]
+        },
+        {
+          "name": "street_address",
+          "nonNullCount": 3,
+          "nullCount": 0,
+          "distinctNonNullCount": 3,
+          "observedTypes": ["text"],
+          "samples": ["808 Nile St.", "2874 Shoal Crest Ave.", "3911 Menchaca/Manchaca Rd."]
+        },
+        {
+          "name": "city",
+          "nonNullCount": 3,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["text"],
+          "samples": ["Austin"]
+        },
+        {
+          "name": "state",
+          "nonNullCount": 3,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["text"],
+          "samples": ["TX"]
+        },
+        {
+          "name": "zip",
+          "nonNullCount": 3,
+          "nullCount": 0,
+          "distinctNonNullCount": 3,
+          "observedTypes": ["integer"],
+          "samples": ["78702", "78705", "78704"]
+        },
+        {
+          "name": "phone",
+          "nonNullCount": 3,
+          "nullCount": 0,
+          "distinctNonNullCount": 3,
+          "observedTypes": ["text"],
+          "samples": ["512-978-2660", "512-978-2480", "512-978-2400"]
+        },
+        {
+          "name": "dataset_id",
+          "nonNullCount": 3,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["text"],
+          "samples": ["3yna-uh9e"]
+        },
+        {
+          "name": "source_url",
+          "nonNullCount": 3,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["url"],
+          "samples": [
+            "https://data.austintexas.gov/Recreation-and-Culture/APR-Senior-Activity-Centers/3yna-uh9e"
+          ]
+        },
+        {
+          "name": "snapshot_status",
+          "nonNullCount": 3,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["text"],
+          "samples": ["complete manual snapshot of the three source rows as of research"]
+        },
+        {
+          "name": "operational_warning",
+          "nonNullCount": 3,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["text"],
+          "samples": [
+            "Inventory does not establish activation, hours, HVAC, capacity, or event-time status."
+          ]
+        }
+      ]
+    },
+    {
+      "path": "data\\raw\\private_candidate_facilities_2026-07-19.csv",
+      "format": "csv",
+      "bytes": 656,
+      "sha256": "147cdf4a115ac339b040d37de6430e38798e4117a2b23905174ed9086fcd88b4",
+      "rowCount": 2,
+      "columnCount": 11,
+      "columns": [
+        {
+          "name": "candidate_id",
+          "nonNullCount": 2,
+          "nullCount": 0,
+          "distinctNonNullCount": 2,
+          "observedTypes": ["text"],
+          "samples": ["barton-creek-square", "lakeline-mall"]
+        },
+        {
+          "name": "name",
+          "nonNullCount": 2,
+          "nullCount": 0,
+          "distinctNonNullCount": 2,
+          "observedTypes": ["text"],
+          "samples": ["Barton Creek Square", "Lakeline Mall"]
+        },
+        {
+          "name": "address",
+          "nonNullCount": 2,
+          "nullCount": 0,
+          "distinctNonNullCount": 2,
+          "observedTypes": ["text"],
+          "samples": ["2901 S. Capital of Texas Hwy.", "11200 Lakeline Mall Dr."]
+        },
+        {
+          "name": "city",
+          "nonNullCount": 2,
+          "nullCount": 0,
+          "distinctNonNullCount": 2,
+          "observedTypes": ["text"],
+          "samples": ["Austin", "Cedar Park"]
+        },
+        {
+          "name": "state",
+          "nonNullCount": 2,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["text"],
+          "samples": ["TX"]
+        },
+        {
+          "name": "zip",
+          "nonNullCount": 2,
+          "nullCount": 0,
+          "distinctNonNullCount": 2,
+          "observedTypes": ["integer"],
+          "samples": ["78746", "78613"]
+        },
+        {
+          "name": "jurisdiction",
+          "nonNullCount": 2,
+          "nullCount": 0,
+          "distinctNonNullCount": 2,
+          "observedTypes": ["text"],
+          "samples": ["Austin", "Cedar Park / North Austin metro"]
+        },
+        {
+          "name": "source_url",
+          "nonNullCount": 2,
+          "nullCount": 0,
+          "distinctNonNullCount": 2,
+          "observedTypes": ["url"],
+          "samples": [
+            "https://www.simon.com/mall/barton-creek-square/about",
+            "https://www.simon.com/mall/lakeline-mall/about"
+          ]
+        },
+        {
+          "name": "status",
+          "nonNullCount": 2,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["text"],
+          "samples": ["candidate_unverified"]
+        },
+        {
+          "name": "source_date",
+          "nonNullCount": 2,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["text"],
+          "samples": ["2026-07-19"]
+        },
+        {
+          "name": "warning",
+          "nonNullCount": 2,
+          "nullCount": 0,
+          "distinctNonNullCount": 2,
+          "observedTypes": ["text"],
+          "samples": [
+            "Public hours and amenities do not establish an emergency cooling-center agreement or event-time availability.",
+            "Cross-jurisdiction candidate; no City of Austin agreement or event activation is implied."
+          ]
+        }
+      ]
+    },
+    {
+      "path": "data\\raw\\travis_county_community_centers_2026-07-19.csv",
+      "format": "csv",
+      "bytes": 2255,
+      "sha256": "539ee6d2ad003a7b3f051530f5fb86e657aa855ed1555f2bc135408946a511f1",
+      "rowCount": 6,
+      "columnCount": 10,
+      "columns": [
+        {
+          "name": "name",
+          "nonNullCount": 6,
+          "nullCount": 0,
+          "distinctNonNullCount": 6,
+          "observedTypes": ["text"],
+          "samples": [
+            "Del Valle Community Center",
+            "Manor Community Center",
+            "Jonestown Community Center"
+          ]
+        },
+        {
+          "name": "street_address",
+          "nonNullCount": 6,
+          "nullCount": 0,
+          "distinctNonNullCount": 6,
+          "observedTypes": ["text"],
+          "samples": ["3518 FM 973 S.", "600 W. Carrie Manor St.", "18649 FM 1431, Suite 6A"]
+        },
+        {
+          "name": "city",
+          "nonNullCount": 6,
+          "nullCount": 0,
+          "distinctNonNullCount": 5,
+          "observedTypes": ["text"],
+          "samples": ["Del Valle", "Manor", "Jonestown"]
+        },
+        {
+          "name": "state",
+          "nonNullCount": 6,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["text"],
+          "samples": ["TX"]
+        },
+        {
+          "name": "zip",
+          "nonNullCount": 6,
+          "nullCount": 0,
+          "distinctNonNullCount": 6,
+          "observedTypes": ["integer"],
+          "samples": ["78617", "78653", "78645"]
+        },
+        {
+          "name": "phone",
+          "nonNullCount": 6,
+          "nullCount": 0,
+          "distinctNonNullCount": 6,
+          "observedTypes": ["text"],
+          "samples": ["512-854-1520", "512-854-1550", "512-854-1500"]
+        },
+        {
+          "name": "source_url",
+          "nonNullCount": 6,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["url"],
+          "samples": ["https://www.traviscountytx.gov/health-human-services/community-centers"]
+        },
+        {
+          "name": "retrieved_date",
+          "nonNullCount": 6,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["text"],
+          "samples": ["2026-07-19"]
+        },
+        {
+          "name": "source_normal_hours_note",
+          "nonNullCount": 6,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["text"],
+          "samples": [
+            "Source page stated 8:00 a.m.-5:00 p.m. Monday-Friday, excluding County holidays, during research."
+          ]
+        },
+        {
+          "name": "operational_warning",
+          "nonNullCount": 6,
+          "nullCount": 0,
+          "distinctNonNullCount": 1,
+          "observedTypes": ["text"],
+          "samples": [
+            "Normal hours do not establish event-time cooling-center availability; verify before use."
+          ]
+        }
+      ]
+    },
+    {
+      "path": "data\\processed\\demo_data.json",
+      "format": "json",
+      "bytes": 28429,
+      "sha256": "8cd1e31b569f77e0984ed1d3805337f81801a2e35aa85205d06c25439ddf466a",
+      "rootType": "object",
+      "topLevelFields": [
+        {
+          "name": "schemaVersion",
+          "type": "integer",
+          "size": null
+        },
+        {
+          "name": "fixtureVersion",
+          "type": "string",
+          "size": 12
+        },
+        {
+          "name": "generatedAt",
+          "type": "string",
+          "size": 25
+        },
+        {
+          "name": "product",
+          "type": "object",
+          "size": 5
+        },
+        {
+          "name": "disclosures",
+          "type": "array",
+          "size": 4
+        },
+        {
+          "name": "operationalPeriod",
+          "type": "object",
+          "size": 6
+        },
+        {
+          "name": "methodology",
+          "type": "object",
+          "size": 8
+        },
+        {
+          "name": "sources",
+          "type": "array",
+          "size": 10
+        },
+        {
+          "name": "healthSnapshot",
+          "type": "object",
+          "size": 13
+        },
+        {
+          "name": "facilities",
+          "type": "array",
+          "size": 11
+        },
+        {
+          "name": "zones",
+          "type": "array",
+          "size": 6
+        },
+        {
+          "name": "partners",
+          "type": "array",
+          "size": 2
+        },
+        {
+          "name": "tasks",
+          "type": "array",
+          "size": 0
+        },
+        {
+          "name": "auditEvents",
+          "type": "array",
+          "size": 1
+        },
+        {
+          "name": "scenario",
+          "type": "object",
+          "size": 7
+        }
+      ],
+      "domainSections": {
+        "sources": 10,
+        "facilities": 11,
+        "zones": 6,
+        "partners": 2,
+        "tasks": 0,
+        "auditEvents": 1
+      },
+      "sectionFieldUnions": {
+        "sources": [
+          "authorityClass",
+          "caveat",
+          "fixtureUse",
+          "id",
+          "name",
+          "owner",
+          "sourceDate",
+          "url"
+        ],
+        "facilities": [
+          "demoDisclosure",
+          "eligibleIndoorCooling",
+          "id",
+          "inventory",
+          "name",
+          "operationalStatus",
+          "reliefClass",
+          "type"
+        ],
+        "zones": [
+          "baseAccessFactors",
+          "geographyDisclosure",
+          "healthContext",
+          "heatPercentile",
+          "id",
+          "name",
+          "reasonLabels",
+          "relationships",
+          "schematic",
+          "sviPercentile"
+        ],
+        "partners": ["id", "name", "organizationType"],
+        "tasks": [],
+        "auditEvents": ["actorRole", "at", "authorityClass", "id", "summary", "type"]
+      }
+    }
+  ]
+}

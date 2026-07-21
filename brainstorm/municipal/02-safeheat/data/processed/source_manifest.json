@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "researchDate": "2026-07-19",
+  "root": "brainstorm/municipal/02-safeheat",
+  "entries": [
+    {
+      "path": "data\\raw\\austin_facilities_demo_subset_2026-07-19.csv",
+      "bytes": 3791,
+      "sha256": "12b9289f8bee00bfb05a4fd60d9cd169fdba4df8575deb80c6610c6d9f0018af",
+      "artifactClass": "curated_research_snapshot"
+    },
+    {
+      "path": "data\\raw\\austin_heat_health_snapshot_published_2026-07-13.json",
+      "bytes": 697,
+      "sha256": "411af38f2a2cf4426874bae6879bcfc27c40c0251c711cf5d97c225d97a1e6eb",
+      "artifactClass": "dated_context_snapshot"
+    },
+    {
+      "path": "data\\raw\\austin_public_library_locations_tc36-hn4j_normalized_2026-07-19.csv",
+      "bytes": 12119,
+      "sha256": "45d2ce08446c0e1a4d465d1f67746c571cf5f69fb3cff320e18e37b83e418991",
+      "artifactClass": "complete_normalized_snapshot"
+    },
+    {
+      "path": "data\\raw\\austin_recreation_centers_8dff-2vkt_normalized_2026-07-19.csv",
+      "bytes": 10930,
+      "sha256": "0a6b48c985408707361460db7bda3f3d12e015fedda5b576b0938bf0384c6d0f",
+      "artifactClass": "complete_normalized_snapshot"
+    },
+    {
+      "path": "data\\raw\\austin_senior_activity_centers_2026-07-19.csv",
+      "bytes": 1117,
+      "sha256": "324fac0185f675e8b0266410bc711f4ea6d9cdc2cde5d7c233368be5286bb025",
+      "artifactClass": "complete_manual_snapshot"
+    },
+    {
+      "path": "data\\raw\\private_candidate_facilities_2026-07-19.csv",
+      "bytes": 656,
+      "sha256": "147cdf4a115ac339b040d37de6430e38798e4117a2b23905174ed9086fcd88b4",
+      "artifactClass": "curated_research_snapshot"
+    },
+    {
+      "path": "data\\raw\\travis_county_community_centers_2026-07-19.csv",
+      "bytes": 2255,
+      "sha256": "539ee6d2ad003a7b3f051530f5fb86e657aa855ed1555f2bc135408946a511f1",
+      "artifactClass": "complete_manual_snapshot"
+    },
+    {
+      "path": "data\\processed\\demo_data.json",
+      "bytes": 28429,
+      "sha256": "8cd1e31b569f77e0984ed1d3805337f81801a2e35aa85205d06c25439ddf466a",
+      "artifactClass": "processed_fixture"
+    },
+    {
+      "path": "data\\processed\\local_data_profile.json",
+      "bytes": 27224,
+      "sha256": "c7aa3adb9cdff099d884a41bb250de7443984e3390ea917651caf7fed86c3e6c",
+      "artifactClass": "generated_data_profile"
+    }
+  ],
+  "warning": "Checksums cover bundled local artifacts only. They do not imply event-time facility verification or a complete cache of every external source."
+}

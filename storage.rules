@@ -1,0 +1,10 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Secure-by-default. Do not accept public uploads until validation,
+    // content limits, ownership, retention, and moderation are designed.
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

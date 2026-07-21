@@ -1,0 +1,56 @@
+# Dependencies
+node_modules/
+archive/
+
+# Next.js
+.next/
+out/
+
+# Tests
+coverage/
+playwright-report/
+test-results/
+.vitest/
+
+# Firebase
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+!.env.test.example
+*.local
+
+# Generated static mirrors (rebuilt by predev/prebuild)
+public/docs/
+public/brainstorm/
+
+# Build artifacts
+*.tsbuildinfo
+__pycache__/
+*.pyc
+
+# Editors / OS
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Logs
+*.log
+npm-debug.log*
+
+# Pre-loaded raw source snapshots (~25MB; regenerate with scripts/fetch_sources.py).
+# Provenance records (manifests, findings) stay tracked so checksums and record
+# counts survive in git without the payload.
+brainstorm/municipal/02-safeheat/data/raw/downloaded/**
+!brainstorm/municipal/02-safeheat/data/raw/downloaded/
+!brainstorm/municipal/02-safeheat/data/raw/downloaded/*/
+!brainstorm/municipal/02-safeheat/data/raw/downloaded/PRELOAD_FINDINGS.md
+!brainstorm/municipal/02-safeheat/data/raw/downloaded/*/download_manifest.json
+# Derived statistics quoted in the demo must keep their provenance in git (small JSON).
+!brainstorm/municipal/02-safeheat/data/raw/downloaded/*/austin_heat_event_climatology.json

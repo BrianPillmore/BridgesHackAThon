@@ -1,0 +1,246 @@
+{
+  "project": "SafeHeat",
+  "research_date": "2026-07-19",
+  "timezone": "America/Chicago",
+  "operational_rule": "Inventory presence does not establish event-time availability. Unknown, stale, or unverified status never counts as local indoor access. Transportation and outreach are mitigation states, not coverage states.",
+  "facility_classes": [
+    {
+      "id": "austin_public_libraries",
+      "name": "Austin Public Library",
+      "record_count_as_of_research": 23,
+      "source_id": "tc36-hn4j",
+      "api_json": "https://data.austintexas.gov/resource/tc36-hn4j.json?$limit=5000",
+      "api_geojson": "https://data.austintexas.gov/resource/tc36-hn4j.geojson?$limit=5000",
+      "machine_readable": true,
+      "default_relief_class": "public_indoor_cooling_capable",
+      "qualifies_only_when": "Current operating hours and event-time status are verified",
+      "notes": [
+        "The inventory does not prove today's hours, HVAC status, capacity, or temporary closure.",
+        "Library-affiliated destinations may require suitability review before being treated as normal branches."
+      ],
+      "local_snapshot": "data/raw/austin_public_library_locations_tc36-hn4j_normalized_2026-07-19.csv"
+    },
+    {
+      "id": "austin_recreation_centers",
+      "name": "Austin Parks and Recreation community recreation centers",
+      "record_count_as_of_research": 20,
+      "source_id": "8dff-2vkt",
+      "api_json": "https://data.austintexas.gov/resource/8dff-2vkt.json?$limit=5000",
+      "api_geojson": "https://data.austintexas.gov/resource/8dff-2vkt.geojson?$limit=5000",
+      "machine_readable": true,
+      "default_relief_class": "public_indoor_cooling_capable",
+      "qualifies_only_when": "Current operating hours and event-time status are verified",
+      "names": [
+        "Alamo Recreation Center",
+        "Austin Recreation Center",
+        "Danny G. McBeth Recreation Center",
+        "Delores Duffie Recreation Center",
+        "Dittmar Recreation Center",
+        "Dottie Jordan Recreation Center",
+        "George Morales Dove Springs Recreation Center",
+        "Givens Recreation Center",
+        "Gustavo \"Gus\" L. Garcia Recreation Center",
+        "Hancock Recreation Center",
+        "Lorraine \"Grandma\" Camacho Activity Center",
+        "Rodolfo \"Rudy\" Mendez Recreation Center",
+        "Montopolis Recreation and Community Center",
+        "Northwest Recreation Center",
+        "Oswaldo A.B. Cantu/Pan American Recreation Center",
+        "Parque Zaragoza Recreation Center",
+        "Pickfair Community Center",
+        "South Austin Recreation Center",
+        "Turner-Roberts Recreation Center",
+        "Virginia L. Brown Recreation Center"
+      ],
+      "local_snapshot": "data/raw/austin_recreation_centers_8dff-2vkt_normalized_2026-07-19.csv"
+    },
+    {
+      "id": "austin_senior_activity_centers",
+      "name": "Austin senior activity centers",
+      "record_count_as_of_research": 3,
+      "source_id": "3yna-uh9e",
+      "api_json": "https://data.austintexas.gov/resource/3yna-uh9e.json?$limit=5000",
+      "api_geojson": "https://data.austintexas.gov/resource/3yna-uh9e.geojson?$limit=5000",
+      "machine_readable": true,
+      "default_relief_class": "public_indoor_candidate",
+      "facilities": [
+        {
+          "name": "Conley-Guerrero Senior Activity Center",
+          "address": "808 Nile St., Austin, TX 78702",
+          "phone": "512-978-2660"
+        },
+        {
+          "name": "Senior Activity Center - Lamar",
+          "address": "2874 Shoal Crest Ave., Austin, TX 78705",
+          "phone": "512-978-2480"
+        },
+        {
+          "name": "South Austin Senior Activity Center",
+          "address": "3911 Menchaca/Manchaca Rd., Austin, TX 78704",
+          "phone": "512-978-2400"
+        }
+      ]
+    },
+    {
+      "id": "austin_pools_splash_pads",
+      "name": "Austin pools and splash pads",
+      "record_count_as_of_research": 46,
+      "source_id": "xaxa-886r",
+      "map_view_id": "jfqh-bqzu",
+      "api_json": "https://data.austintexas.gov/resource/xaxa-886r.json?$limit=5000",
+      "api_geojson": "https://data.austintexas.gov/resource/xaxa-886r.geojson?$limit=5000",
+      "machine_readable": true,
+      "default_relief_class": "water_or_aquatic_amenity",
+      "qualifies_as_indoor_cooling": false,
+      "notes": [
+        "Preserve source status, weekday/weekend schedule, closure days, type, and safety caveats.",
+        "Aquatic amenities do not close an indoor-relief gap."
+      ]
+    },
+    {
+      "id": "travis_county_community_centers",
+      "name": "Travis County community centers",
+      "record_count_as_of_research": 6,
+      "source_url": "https://www.traviscountytx.gov/health-human-services/community-centers",
+      "machine_readable": false,
+      "default_relief_class": "county_public_indoor_cooling_capable",
+      "normal_hours_at_research_time": "8:00 a.m.-5:00 p.m. Monday-Friday, excluding County holidays",
+      "facilities": [
+        {
+          "name": "Del Valle Community Center",
+          "address": "3518 FM 973 S., Del Valle, TX 78617",
+          "phone": "512-854-1520"
+        },
+        {
+          "name": "Manor Community Center",
+          "address": "600 W. Carrie Manor St., Manor, TX 78653",
+          "phone": "512-854-1550"
+        },
+        {
+          "name": "Jonestown Community Center",
+          "address": "18649 FM 1431, Suite 6A, Jonestown, TX 78645",
+          "phone": "512-854-1500"
+        },
+        {
+          "name": "Oak Hill Community Center",
+          "address": "8656-A State Highway 71 W., Suite 100, Austin, TX 78735",
+          "phone": "512-854-2130"
+        },
+        {
+          "name": "Pflugerville Community Center",
+          "address": "15822 Foothill Farm Loop, Suite D, Pflugerville, TX 78660",
+          "phone": "512-854-1530"
+        },
+        {
+          "name": "Central Austin Community Center",
+          "address": "5325 Airport Blvd., Austin, TX 78751",
+          "phone": "512-854-4120"
+        }
+      ],
+      "local_snapshot": "data/raw/travis_county_community_centers_2026-07-19.csv"
+    }
+  ],
+  "service_systems": [
+    {
+      "id": "open_now",
+      "name": "Open Now Austin resource finder",
+      "url": "https://opennow.maps.austintexas.gov/",
+      "integration_status": "link_only_until_approved_feed",
+      "services": [
+        "daytime cooling",
+        "water",
+        "hygiene",
+        "physical and mental healthcare",
+        "recovery support",
+        "nutrition"
+      ],
+      "notes": [
+        "Do not scrape without permission.",
+        "Use an approved feed, export, or partner API in production."
+      ]
+    },
+    {
+      "id": "capmetro_gtfs",
+      "name": "CapMetro GTFS",
+      "url": "https://data.austintexas.gov/download/r4v4-vz24/application/zip",
+      "integration_status": "offline_adapter_research_only",
+      "notes": [
+        "Static schedule data do not guarantee a real-time trip.",
+        "Transportation is a mitigation state and does not change local indoor access or facility status.",
+        "The conference fixture uses synthetic/precomputed transit context; the GTFS ZIP is not bundled in the app."
+      ]
+    }
+  ],
+  "private_candidates": [
+    {
+      "id": "barton_creek_square",
+      "name": "Barton Creek Square",
+      "address": "2901 S. Capital of Texas Hwy., Austin, TX 78746",
+      "jurisdiction": "Austin",
+      "source_url": "https://www.simon.com/mall/barton-creek-square/about",
+      "status": "candidate_unverified",
+      "relief_class": "private_partner_candidate",
+      "publicly_listed_attributes": [
+        "large enclosed indoor common area",
+        "accessible parking",
+        "family restrooms",
+        "soft seating",
+        "device charging",
+        "complimentary wheelchairs",
+        "Wi-Fi",
+        "management and security contacts"
+      ],
+      "notes": [
+        "Public hours and amenities are not evidence of an emergency cooling-center agreement.",
+        "Requires participation, free-entry, accessibility, capacity, hours, publication, and event-time verification."
+      ]
+    },
+    {
+      "id": "lakeline_mall",
+      "name": "Lakeline Mall",
+      "address": "11200 Lakeline Mall Dr., Cedar Park, TX 78613",
+      "jurisdiction": "Cedar Park / North Austin metro",
+      "source_url": "https://www.simon.com/mall/lakeline-mall/about",
+      "status": "candidate_unverified",
+      "relief_class": "private_partner_candidate",
+      "cross_jurisdiction": true,
+      "publicly_listed_attributes": [
+        "enclosed indoor common area",
+        "accessible parking",
+        "family restrooms",
+        "drinking fountains",
+        "soft seating",
+        "device charging",
+        "complimentary wheelchairs",
+        "Wi-Fi",
+        "service-animal access",
+        "published transit context"
+      ],
+      "notes": [
+        "Not a City of Austin facility.",
+        "Requires regional agreement and current activation before public display as a cooling resource."
+      ]
+    }
+  ],
+  "required_verification_fields": [
+    "participation_confirmed",
+    "public_entry_confirmed",
+    "opens_at",
+    "closes_at",
+    "hvac_confirmed",
+    "power_confirmed",
+    "capacity_status",
+    "accessible_entrance",
+    "accessible_restroom",
+    "drinking_water",
+    "restrooms",
+    "service_animals",
+    "verified_by_organization",
+    "verified_by_role",
+    "verification_method",
+    "verified_at",
+    "expires_at",
+    "source_url_or_note"
+  ],
+  "schema_version": 2
+}

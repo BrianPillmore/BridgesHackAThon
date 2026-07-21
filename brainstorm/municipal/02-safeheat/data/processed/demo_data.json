@@ -1,0 +1,816 @@
+{
+  "schemaVersion": 2,
+  "fixtureVersion": "2026-07-19.2",
+  "generatedAt": "2026-07-19T01:30:00-05:00",
+  "product": {
+    "name": "SafeHeat",
+    "city": "Austin, Texas",
+    "timezone": "America/Chicago",
+    "mode": "DEMO",
+    "openSourceIntent": true
+  },
+  "disclosures": [
+    "Synthetic operational scenario for conference demonstration; not an official City of Austin system.",
+    "Facility names and locations may derive from public inventory, but all event-time statuses, hours, capacity, tasks, area scores, and relationships are synthetic unless explicitly labeled otherwise.",
+    "Emergency / Emergencia: call 9-1-1 for immediate danger. Use official Austin alerts for current public information.",
+    "No resident-level data are included."
+  ],
+  "operationalPeriod": {
+    "id": "op-2026-07-19-demo",
+    "title": "Synthetic Austin heat-response period",
+    "startsAt": "2026-07-19T12:00:00-05:00",
+    "dangerWindowStart": "2026-07-19T13:00:00-05:00",
+    "dangerWindowEnd": "2026-07-19T20:00:00-05:00",
+    "warning": {
+      "headline": "Synthetic Extreme Heat Warning",
+      "severity": "severe",
+      "effectiveAt": "2026-07-19T12:00:00-05:00",
+      "expiresAt": "2026-07-19T20:00:00-05:00",
+      "authorityClass": "synthetic_demo",
+      "description": "Deterministic warning used to rehearse the workflow; not a live NWS alert.",
+      "productNameNote": "NWS retired \"Excessive Heat Warning\"; the current product is \"Extreme Heat Warning\" and the VTEC phenomena code moved from EH to XH in 2025. Verified against https://api.weather.gov/alerts/types on 2026-07-20."
+    }
+  },
+  "methodology": {
+    "priorityFormula": "0.45 * heatPercentile + 0.35 * sviPercentile + 0.20 * accessGapScore",
+    "weights": {
+      "heatPercentile": 0.45,
+      "sviPercentile": 0.35,
+      "accessGapScore": 0.2
+    },
+    "bands": {
+      "criticalMin": 80,
+      "highMin": 65,
+      "moderateMin": 45
+    },
+    "accessThresholdMilesApprox": 1.25,
+    "accessGapPoints": {
+      "noQualifyingIndoorFacility": 45,
+      "nearestClosesBeforeDangerEnd": 20,
+      "capacityRisk": 15,
+      "transitPoorOrUnknown": 10,
+      "statusUnknownOrStale": 10
+    },
+    "healthContextScoreUse": "excluded",
+    "geographicJoinNote": "Public block-group heat and tract SVI/PLACES would be joined offline using the first 11 digits of a validated 12-digit block-group GEOID. No runtime join is performed.",
+    "distanceNote": "Distances in this fixture are approximate, synthetic/precomputed demo relationships and are not routes or travel-time guarantees."
+  },
+  "sources": [
+    {
+      "id": "source-austin-heat-disparity",
+      "name": "Heat Disparity by Census Block Groups — Summer 2024",
+      "url": "https://services.arcgis.com/0L95CJ0VTaxqcmED/ArcGIS/rest/services/Heat_Disparity_by_Census_Block_Groups/FeatureServer/0",
+      "owner": "City of Austin",
+      "authorityClass": "authoritative_source",
+      "sourceDate": "2024-06-01/2024-08-31",
+      "fixtureUse": "schema/provenance and precomputed synthetic demo heat percentile",
+      "caveat": "Historical land-surface-temperature difference from city average; not current air temperature."
+    },
+    {
+      "id": "source-austin-libraries",
+      "name": "Austin Public Library Locations",
+      "url": "https://data.austintexas.gov/Locations-and-Maps/Austin-Public-Library-Locations/tc36-hn4j",
+      "owner": "Austin Public Library",
+      "authorityClass": "authoritative_source",
+      "sourceDate": "2025-10-23",
+      "fixtureUse": "real public inventory names/locations",
+      "caveat": "Inventory does not establish event-time status or hours."
+    },
+    {
+      "id": "source-austin-recreation",
+      "name": "Austin Recreation Centers",
+      "url": "https://data.austintexas.gov/Locations-and-Maps/Recreation-Centers/8dff-2vkt",
+      "owner": "Austin Parks and Recreation",
+      "authorityClass": "authoritative_source",
+      "sourceDate": "2024-06",
+      "fixtureUse": "real public inventory names/locations",
+      "caveat": "All event-time statuses in the fixture are synthetic."
+    },
+    {
+      "id": "source-austin-pools",
+      "name": "Austin Pool Schedule",
+      "url": "https://data.austintexas.gov/Locations-and-Maps/Austin-Pool-Schedule/xaxa-886r",
+      "owner": "Austin Parks and Recreation",
+      "authorityClass": "authoritative_source",
+      "sourceDate": "2026-06-05",
+      "fixtureUse": "aquatic-amenity distinction",
+      "caveat": "Aquatic status is not indoor cooling access."
+    },
+    {
+      "id": "source-cdc-svi",
+      "name": "CDC/ATSDR Social Vulnerability Index, 2022",
+      "url": "https://www.atsdr.cdc.gov/place-health/php/svi/svi-data-documentation-download.html",
+      "owner": "CDC/ATSDR",
+      "authorityClass": "authoritative_source",
+      "sourceDate": "2022 release",
+      "fixtureUse": "schema/provenance and synthetic demo percentile",
+      "caveat": "Area-level context; not an individual label."
+    },
+    {
+      "id": "source-cdc-places",
+      "name": "CDC PLACES Census Tract Data, GIS Friendly Format, 2025 release",
+      "url": "https://data.cdc.gov/resource/yjkw-uj5s.json",
+      "owner": "CDC",
+      "authorityClass": "authoritative_source",
+      "sourceDate": "2025 release",
+      "fixtureUse": "synthetic contextual measures shaped like public fields; excluded from score",
+      "caveat": "Modeled area-level estimates, not observed patient records or heat-illness predictions."
+    },
+    {
+      "id": "source-nws",
+      "name": "National Weather Service API",
+      "url": "https://www.weather.gov/documentation/services-web-api",
+      "owner": "National Weather Service",
+      "authorityClass": "authoritative_source",
+      "sourceDate": "API reference current at research",
+      "fixtureUse": "schema/provenance only; warning is synthetic",
+      "caveat": "The demo is not a source of live alerts."
+    },
+    {
+      "id": "source-austin-emergency-hub",
+      "name": "Austin Active Emergency Information Hub",
+      "url": "https://www.austintexas.gov/emergency-management/active-emergency-information-hub",
+      "owner": "Austin Emergency Management",
+      "authorityClass": "authoritative_source",
+      "sourceDate": "event-time web page",
+      "fixtureUse": "official-information link",
+      "caveat": "Dynamic HTML, not ingested as operational truth."
+    },
+    {
+      "id": "source-austin-heat-health",
+      "name": "Austin Heat Awareness and Heat Illness Statistics",
+      "url": "https://www.austintexas.gov/ready-central-texas/heat-awareness",
+      "owner": "Austin Public Health / Ready Central Texas",
+      "authorityClass": "authoritative_source",
+      "sourceDate": "published 2026-07-13 for data through 2026-07-06",
+      "fixtureUse": "dated aggregate situation context",
+      "caveat": "Preliminary aggregate context; not zone-level."
+    },
+    {
+      "id": "source-capmetro-gtfs",
+      "name": "CapMetro static GTFS",
+      "url": "https://data.austintexas.gov/download/r4v4-vz24/application/zip",
+      "owner": "CapMetro",
+      "authorityClass": "authoritative_source",
+      "sourceDate": "feed changes periodically",
+      "fixtureUse": "source/provenance only; demo transit values are synthetic",
+      "caveat": "Static schedule context is not a real-time trip guarantee."
+    }
+  ],
+  "healthSnapshot": {
+    "source": "Austin Heat Awareness and Heat Illness Statistics",
+    "sourceUrl": "https://www.austintexas.gov/ready-central-texas/heat-awareness",
+    "coverageStart": "2026-05-01",
+    "coverageEnd": "2026-07-06",
+    "publishedAt": "2026-07-13T13:24:00-05:00",
+    "retrievedDate": "2026-07-19",
+    "heatAdvisoriesOrWarnings": 1,
+    "heatRelatedDeaths": 0,
+    "emergencyDepartmentVisits": 355,
+    "emsRecords": 118,
+    "extendedHoursActivations": 0,
+    "spatialLevel": "aggregate Austin/Travis public-health context; not neighborhood data",
+    "caveat": "Dated aggregate context. Emergency-department counts are preliminary/pre-diagnostic and must not be interpreted as person-level or zone-level records."
+  },
+  "facilities": [
+    {
+      "id": "facility-dottie-jordan-rec",
+      "name": "Dottie Jordan Recreation Center",
+      "type": "recreation_center",
+      "reliefClass": "public_indoor_cooling_capable",
+      "eligibleIndoorCooling": true,
+      "inventory": {
+        "address": "2803 Loyola Ln., Austin, TX 78723",
+        "latitude": 30.314377,
+        "longitude": -97.673367,
+        "phone": "(512) 978-2380",
+        "sourceId": "source-austin-recreation"
+      },
+      "operationalStatus": {
+        "state": "open",
+        "eventOpenAt": "2026-07-19T10:00:00-05:00",
+        "eventCloseAt": "2026-07-19T20:00:00-05:00",
+        "capacity": "available",
+        "verifiedAt": "2026-07-19T11:45:00-05:00",
+        "expiresAt": "2026-07-19T20:30:00-05:00",
+        "verificationMethod": "demo_fixture",
+        "verifierRole": "Parks duty coordinator",
+        "authorityClass": "synthetic_demo"
+      },
+      "demoDisclosure": "Name/location derive from public inventory. Event status is synthetic."
+    },
+    {
+      "id": "facility-university-hills-library",
+      "name": "University Hills Branch",
+      "type": "library",
+      "reliefClass": "public_indoor_cooling_capable",
+      "eligibleIndoorCooling": true,
+      "inventory": {
+        "address": "4721 Loyola Ln., Austin, TX 78723",
+        "latitude": 30.308688004,
+        "longitude": -97.666558995,
+        "phone": "512-974-9940",
+        "sourceId": "source-austin-libraries"
+      },
+      "operationalStatus": {
+        "state": "open",
+        "eventOpenAt": "2026-07-19T10:00:00-05:00",
+        "eventCloseAt": "2026-07-19T18:00:00-05:00",
+        "capacity": "available",
+        "verifiedAt": "2026-07-19T11:40:00-05:00",
+        "expiresAt": "2026-07-19T18:15:00-05:00",
+        "verificationMethod": "demo_fixture",
+        "verifierRole": "Library operations liaison",
+        "authorityClass": "synthetic_demo"
+      },
+      "demoDisclosure": "Name/location derive from public inventory. Event status and hours are synthetic."
+    },
+    {
+      "id": "facility-little-walnut-library",
+      "name": "Little Walnut Creek Branch",
+      "type": "library",
+      "reliefClass": "public_indoor_cooling_capable",
+      "eligibleIndoorCooling": true,
+      "inventory": {
+        "address": "835 W Rundberg Ln., Austin, TX 78758",
+        "latitude": 30.363273011,
+        "longitude": -97.698474013,
+        "phone": "512-974-9860",
+        "sourceId": "source-austin-libraries"
+      },
+      "operationalStatus": {
+        "state": "open",
+        "eventOpenAt": "2026-07-19T10:00:00-05:00",
+        "eventCloseAt": "2026-07-19T18:00:00-05:00",
+        "capacity": "available",
+        "verifiedAt": "2026-07-19T11:35:00-05:00",
+        "expiresAt": "2026-07-19T18:15:00-05:00",
+        "verificationMethod": "demo_fixture",
+        "verifierRole": "Library operations liaison",
+        "authorityClass": "synthetic_demo"
+      },
+      "demoDisclosure": "Event status and hours are synthetic."
+    },
+    {
+      "id": "facility-dove-springs-rec",
+      "name": "George Morales Dove Springs Recreation Center",
+      "type": "recreation_center",
+      "reliefClass": "public_indoor_cooling_capable",
+      "eligibleIndoorCooling": true,
+      "inventory": {
+        "address": "5801 Ainez Dr., Austin, TX 78744",
+        "latitude": 30.187717,
+        "longitude": -97.739513,
+        "phone": "(512) 974-3840",
+        "sourceId": "source-austin-recreation"
+      },
+      "operationalStatus": {
+        "state": "open",
+        "eventOpenAt": "2026-07-19T10:00:00-05:00",
+        "eventCloseAt": "2026-07-19T20:00:00-05:00",
+        "capacity": "limited",
+        "verifiedAt": "2026-07-19T11:25:00-05:00",
+        "expiresAt": "2026-07-19T20:15:00-05:00",
+        "verificationMethod": "demo_fixture",
+        "verifierRole": "Parks duty coordinator",
+        "authorityClass": "synthetic_demo"
+      },
+      "demoDisclosure": "Event status, hours, and capacity are synthetic."
+    },
+    {
+      "id": "facility-ruiz-library",
+      "name": "Ruiz Branch",
+      "type": "library",
+      "reliefClass": "public_indoor_cooling_capable",
+      "eligibleIndoorCooling": true,
+      "inventory": {
+        "address": "1600 Grove Blvd., Austin, TX 78741",
+        "latitude": 30.229867017,
+        "longitude": -97.707050963,
+        "phone": "512-974-7500",
+        "sourceId": "source-austin-libraries"
+      },
+      "operationalStatus": {
+        "state": "open",
+        "eventOpenAt": "2026-07-19T10:00:00-05:00",
+        "eventCloseAt": "2026-07-19T20:00:00-05:00",
+        "capacity": "available",
+        "verifiedAt": "2026-07-19T11:20:00-05:00",
+        "expiresAt": "2026-07-19T20:15:00-05:00",
+        "verificationMethod": "demo_fixture",
+        "verifierRole": "Library operations liaison",
+        "authorityClass": "synthetic_demo"
+      },
+      "demoDisclosure": "Event status and hours are synthetic."
+    },
+    {
+      "id": "facility-carver-library",
+      "name": "Carver Branch",
+      "type": "library",
+      "reliefClass": "public_indoor_cooling_capable",
+      "eligibleIndoorCooling": true,
+      "inventory": {
+        "address": "1161 Angelina St., Austin, TX 78702",
+        "latitude": 30.269948021,
+        "longitude": -97.724265967,
+        "phone": "512-974-1010",
+        "sourceId": "source-austin-libraries"
+      },
+      "operationalStatus": {
+        "state": "open",
+        "eventOpenAt": "2026-07-19T10:00:00-05:00",
+        "eventCloseAt": "2026-07-19T18:00:00-05:00",
+        "capacity": "available",
+        "verifiedAt": "2026-07-19T11:15:00-05:00",
+        "expiresAt": "2026-07-19T18:15:00-05:00",
+        "verificationMethod": "demo_fixture",
+        "verifierRole": "Library operations liaison",
+        "authorityClass": "synthetic_demo"
+      },
+      "demoDisclosure": "Event status and hours are synthetic."
+    },
+    {
+      "id": "facility-central-library",
+      "name": "Central Library",
+      "type": "library",
+      "reliefClass": "public_indoor_cooling_capable",
+      "eligibleIndoorCooling": true,
+      "inventory": {
+        "address": "710 W Cesar Chavez St., Austin, TX 78701",
+        "latitude": 30.266101984,
+        "longitude": -97.751692979,
+        "phone": "512-974-7400",
+        "sourceId": "source-austin-libraries"
+      },
+      "operationalStatus": {
+        "state": "open",
+        "eventOpenAt": "2026-07-19T10:00:00-05:00",
+        "eventCloseAt": "2026-07-19T20:00:00-05:00",
+        "capacity": "available",
+        "verifiedAt": "2026-07-19T11:10:00-05:00",
+        "expiresAt": "2026-07-19T20:15:00-05:00",
+        "verificationMethod": "demo_fixture",
+        "verifierRole": "Library operations liaison",
+        "authorityClass": "synthetic_demo"
+      },
+      "demoDisclosure": "Event status and hours are synthetic."
+    },
+    {
+      "id": "facility-conley-guerrero-senior",
+      "name": "Conley-Guerrero Senior Activity Center",
+      "type": "senior_activity_center",
+      "reliefClass": "public_indoor_candidate",
+      "eligibleIndoorCooling": false,
+      "inventory": {
+        "address": "808 Nile St., Austin, TX 78702",
+        "latitude": null,
+        "longitude": null,
+        "phone": "512-978-2660",
+        "sourceId": "source-austin-recreation"
+      },
+      "operationalStatus": {
+        "state": "unknown",
+        "eventOpenAt": null,
+        "eventCloseAt": null,
+        "capacity": "unknown",
+        "verifiedAt": null,
+        "expiresAt": null,
+        "verificationMethod": null,
+        "verifierRole": null,
+        "authorityClass": "synthetic_demo"
+      },
+      "demoDisclosure": "Candidate class only; does not count as cooling access."
+    },
+    {
+      "id": "facility-dottie-jordan-pool",
+      "name": "Dottie Jordan Pool",
+      "type": "aquatic_amenity",
+      "reliefClass": "water_or_aquatic_amenity",
+      "eligibleIndoorCooling": false,
+      "inventory": {
+        "address": "2803 Loyola Ln., Austin, TX",
+        "latitude": 30.314319348000026,
+        "longitude": -97.67341137899996,
+        "phone": "512-974-9331",
+        "sourceId": "source-austin-pools"
+      },
+      "operationalStatus": {
+        "state": "open",
+        "eventOpenAt": "2026-07-19T12:00:00-05:00",
+        "eventCloseAt": "2026-07-19T19:00:00-05:00",
+        "capacity": "unknown",
+        "verifiedAt": "2026-07-19T11:00:00-05:00",
+        "expiresAt": "2026-07-19T19:15:00-05:00",
+        "verificationMethod": "demo_fixture",
+        "verifierRole": "Aquatics schedule fixture",
+        "authorityClass": "synthetic_demo"
+      },
+      "demoDisclosure": "Displayed as an aquatic amenity; never qualifies as indoor cooling access."
+    },
+    {
+      "id": "facility-barton-creek-candidate",
+      "name": "Barton Creek Square",
+      "type": "private_candidate",
+      "reliefClass": "private_partner_candidate",
+      "eligibleIndoorCooling": false,
+      "inventory": {
+        "address": "2901 S. Capital of Texas Hwy., Austin, TX 78746",
+        "latitude": null,
+        "longitude": null,
+        "phone": null,
+        "sourceId": null
+      },
+      "operationalStatus": {
+        "state": "candidate_unverified",
+        "eventOpenAt": null,
+        "eventCloseAt": null,
+        "capacity": "unknown",
+        "verifiedAt": null,
+        "expiresAt": null,
+        "verificationMethod": null,
+        "verifierRole": null,
+        "authorityClass": "candidate_unverified"
+      },
+      "demoDisclosure": "No emergency participation agreement or current activation is implied."
+    },
+    {
+      "id": "facility-spicewood-library",
+      "name": "Spicewood Springs Branch",
+      "type": "library",
+      "reliefClass": "public_indoor_cooling_capable",
+      "eligibleIndoorCooling": true,
+      "inventory": {
+        "address": "8637 Spicewood Springs Rd., Austin, TX 78759",
+        "latitude": 30.433571236,
+        "longitude": -97.772902128,
+        "phone": "512-974-3800",
+        "sourceId": "source-austin-libraries"
+      },
+      "operationalStatus": {
+        "state": "open",
+        "eventOpenAt": "2026-07-19T10:00:00-05:00",
+        "eventCloseAt": "2026-07-19T20:00:00-05:00",
+        "capacity": "available",
+        "verifiedAt": "2026-07-19T11:05:00-05:00",
+        "expiresAt": "2026-07-19T20:15:00-05:00",
+        "verificationMethod": "demo_fixture",
+        "verifierRole": "Library operations liaison",
+        "authorityClass": "synthetic_demo"
+      },
+      "demoDisclosure": "Name/location derive from public inventory. Event status and hours are synthetic."
+    }
+  ],
+  "zones": [
+    {
+      "id": "zone-northeast-demo",
+      "name": "Northeast Austin demo area",
+      "geographyDisclosure": "Synthetic conference operations area; not an official neighborhood or response boundary.",
+      "schematic": {
+        "x": 70,
+        "y": 25
+      },
+      "heatPercentile": 94,
+      "sviPercentile": 88,
+      "healthContext": {
+        "asthmaCrudePrevalence": 12.4,
+        "disabilityCrudePrevalence": 14.8,
+        "lackReliableTransportationCrudePrevalence": 9.7,
+        "dataClass": "synthetic_demo_values_shaped_like_cdc_places",
+        "scoreUse": "context_only"
+      },
+      "relationships": [
+        {
+          "facilityId": "facility-dottie-jordan-rec",
+          "distanceMilesApprox": 0.4,
+          "withinIndoorAccessThreshold": true,
+          "transitContext": "Synthetic: short local trip context"
+        },
+        {
+          "facilityId": "facility-university-hills-library",
+          "distanceMilesApprox": 1.7,
+          "withinIndoorAccessThreshold": false,
+          "transitContext": "Synthetic alternate destination for transport task"
+        },
+        {
+          "facilityId": "facility-dottie-jordan-pool",
+          "distanceMilesApprox": 0.4,
+          "withinIndoorAccessThreshold": false,
+          "transitContext": "Aquatic amenity; excluded from indoor access"
+        }
+      ],
+      "baseAccessFactors": {
+        "nearestQualifyingClosesBeforeDangerEnd": false,
+        "capacityRisk": false,
+        "transitPoorOrUnknown": false,
+        "relevantStatusUnknownOrStale": false
+      },
+      "reasonLabels": [
+        "Very high historical heat-disparity percentile",
+        "High area-level social-vulnerability percentile",
+        "One verified nearby indoor facility at scenario start"
+      ]
+    },
+    {
+      "id": "zone-rundberg-demo",
+      "name": "Rundberg demo area",
+      "geographyDisclosure": "Synthetic conference operations area; not an official boundary.",
+      "schematic": {
+        "x": 55,
+        "y": 8
+      },
+      "heatPercentile": 82,
+      "sviPercentile": 91,
+      "healthContext": {
+        "asthmaCrudePrevalence": 11.8,
+        "disabilityCrudePrevalence": 15.1,
+        "lackReliableTransportationCrudePrevalence": 12.6,
+        "dataClass": "synthetic_demo_values_shaped_like_cdc_places",
+        "scoreUse": "context_only"
+      },
+      "relationships": [
+        {
+          "facilityId": "facility-little-walnut-library",
+          "distanceMilesApprox": 0.6,
+          "withinIndoorAccessThreshold": true,
+          "transitContext": "Synthetic local context"
+        }
+      ],
+      "baseAccessFactors": {
+        "nearestQualifyingClosesBeforeDangerEnd": true,
+        "capacityRisk": false,
+        "transitPoorOrUnknown": false,
+        "relevantStatusUnknownOrStale": false
+      },
+      "reasonLabels": [
+        "High heat-disparity percentile",
+        "Very high social-vulnerability percentile",
+        "Nearest verified site closes before danger window ends"
+      ]
+    },
+    {
+      "id": "zone-dove-springs-demo",
+      "name": "Dove Springs demo area",
+      "geographyDisclosure": "Synthetic conference operations area; not an official boundary.",
+      "schematic": {
+        "x": 68,
+        "y": 75
+      },
+      "heatPercentile": 85,
+      "sviPercentile": 82,
+      "healthContext": {
+        "asthmaCrudePrevalence": 10.7,
+        "disabilityCrudePrevalence": 13.3,
+        "lackReliableTransportationCrudePrevalence": 8.8,
+        "dataClass": "synthetic_demo_values_shaped_like_cdc_places",
+        "scoreUse": "context_only"
+      },
+      "relationships": [
+        {
+          "facilityId": "facility-dove-springs-rec",
+          "distanceMilesApprox": 0.5,
+          "withinIndoorAccessThreshold": true,
+          "transitContext": "Synthetic local context"
+        }
+      ],
+      "baseAccessFactors": {
+        "nearestQualifyingClosesBeforeDangerEnd": false,
+        "capacityRisk": true,
+        "transitPoorOrUnknown": false,
+        "relevantStatusUnknownOrStale": false
+      },
+      "reasonLabels": [
+        "High heat-disparity percentile",
+        "High social-vulnerability percentile",
+        "Verified facility has synthetic limited-capacity flag"
+      ]
+    },
+    {
+      "id": "zone-montopolis-demo",
+      "name": "Montopolis demo area",
+      "geographyDisclosure": "Synthetic conference operations area; not an official boundary.",
+      "schematic": {
+        "x": 62,
+        "y": 58
+      },
+      "heatPercentile": 86,
+      "sviPercentile": 80,
+      "healthContext": {
+        "asthmaCrudePrevalence": 10.9,
+        "disabilityCrudePrevalence": 12.8,
+        "lackReliableTransportationCrudePrevalence": 10.2,
+        "dataClass": "synthetic_demo_values_shaped_like_cdc_places",
+        "scoreUse": "context_only"
+      },
+      "relationships": [
+        {
+          "facilityId": "facility-ruiz-library",
+          "distanceMilesApprox": 0.8,
+          "withinIndoorAccessThreshold": true,
+          "transitContext": "Synthetic local context"
+        }
+      ],
+      "baseAccessFactors": {
+        "nearestQualifyingClosesBeforeDangerEnd": false,
+        "capacityRisk": false,
+        "transitPoorOrUnknown": false,
+        "relevantStatusUnknownOrStale": false
+      },
+      "reasonLabels": [
+        "High heat-disparity percentile",
+        "High social-vulnerability percentile",
+        "Verified indoor facility through danger window"
+      ]
+    },
+    {
+      "id": "zone-central-east-demo",
+      "name": "Central East Austin demo area",
+      "geographyDisclosure": "Synthetic conference operations area; not an official boundary.",
+      "schematic": {
+        "x": 48,
+        "y": 45
+      },
+      "heatPercentile": 75,
+      "sviPercentile": 78,
+      "healthContext": {
+        "asthmaCrudePrevalence": 9.8,
+        "disabilityCrudePrevalence": 12.2,
+        "lackReliableTransportationCrudePrevalence": 7.1,
+        "dataClass": "synthetic_demo_values_shaped_like_cdc_places",
+        "scoreUse": "context_only"
+      },
+      "relationships": [
+        {
+          "facilityId": "facility-carver-library",
+          "distanceMilesApprox": 0.7,
+          "withinIndoorAccessThreshold": true,
+          "transitContext": "Synthetic local context"
+        }
+      ],
+      "baseAccessFactors": {
+        "nearestQualifyingClosesBeforeDangerEnd": true,
+        "capacityRisk": false,
+        "transitPoorOrUnknown": false,
+        "relevantStatusUnknownOrStale": false
+      },
+      "reasonLabels": [
+        "Elevated heat-disparity percentile",
+        "High social-vulnerability percentile",
+        "Nearest verified site closes before danger window ends"
+      ]
+    },
+    {
+      "id": "zone-northwest-demo",
+      "name": "Northwest Austin demo area",
+      "geographyDisclosure": "Synthetic conference operations area; not an official boundary.",
+      "schematic": {
+        "x": 25,
+        "y": 15
+      },
+      "heatPercentile": 40,
+      "sviPercentile": 35,
+      "healthContext": {
+        "asthmaCrudePrevalence": 7.2,
+        "disabilityCrudePrevalence": 8.4,
+        "lackReliableTransportationCrudePrevalence": 3.1,
+        "dataClass": "synthetic_demo_values_shaped_like_cdc_places",
+        "scoreUse": "context_only"
+      },
+      "relationships": [
+        {
+          "facilityId": "facility-spicewood-library",
+          "distanceMilesApprox": 0.9,
+          "withinIndoorAccessThreshold": true,
+          "transitContext": "Synthetic local context"
+        }
+      ],
+      "baseAccessFactors": {
+        "nearestQualifyingClosesBeforeDangerEnd": false,
+        "capacityRisk": false,
+        "transitPoorOrUnknown": false,
+        "relevantStatusUnknownOrStale": false
+      },
+      "reasonLabels": [
+        "Moderate historical heat-disparity percentile",
+        "Lower relative social-vulnerability percentile in the demo fixture",
+        "Verified indoor facility through danger window"
+      ]
+    }
+  ],
+  "partners": [
+    {
+      "id": "partner-city-transport-demo",
+      "name": "Transportation coordination role",
+      "organizationType": "synthetic_demo_role"
+    },
+    {
+      "id": "partner-community-outreach-demo",
+      "name": "Community outreach lead role",
+      "organizationType": "synthetic_demo_role"
+    }
+  ],
+  "tasks": [],
+  "auditEvents": [
+    {
+      "id": "audit-period-opened",
+      "at": "2026-07-19T12:00:00-05:00",
+      "type": "operational_period_opened",
+      "summary": "Synthetic heat-response period opened.",
+      "actorRole": "Demo incident lead",
+      "authorityClass": "synthetic_demo"
+    }
+  ],
+  "scenario": {
+    "targetZoneId": "zone-northeast-demo",
+    "coveringFacilityId": "facility-dottie-jordan-rec",
+    "alternateFacilityId": "facility-university-hills-library",
+    "disruption": {
+      "newState": "temporarily_unavailable",
+      "reason": "Synthetic HVAC interruption",
+      "verificationMethod": "staff_entry",
+      "verifierRole": "Parks duty coordinator",
+      "at": "2026-07-19T13:20:00-05:00",
+      "expiresAt": "2026-07-19T20:30:00-05:00"
+    },
+    "taskDraft": {
+      "id": "task-northeast-transport",
+      "type": "transport_to_verified_site",
+      "title": "Arrange transport to University Hills Branch and notify the outreach lead",
+      "zoneId": "zone-northeast-demo",
+      "originFacilityId": "facility-dottie-jordan-rec",
+      "destinationFacilityId": "facility-university-hills-library",
+      "priority": "critical",
+      "dueAt": "2026-07-19T14:00:00-05:00",
+      "organizationId": "partner-city-transport-demo",
+      "ownerRole": "Unassigned",
+      "status": "unassigned",
+      "scope": "Synthetic group-level transportation coordination. Do not enter resident details.",
+      "createdAt": "2026-07-19T13:20:00-05:00"
+    },
+    "deterministicTaskTimes": {
+      "assignedAt": "2026-07-19T13:24:00-05:00",
+      "inProgressAt": "2026-07-19T13:28:00-05:00",
+      "completedAt": "2026-07-19T13:38:00-05:00"
+    },
+    "completionMessage": "Transport mitigation completed; local indoor-access gap remains."
+  },
+  "situationContext": {
+    "dataClass": "public_and_derived",
+    "disclosure": "Public and offline-derived values. Unlike the operational status elsewhere on this screen, these are NOT synthetic.",
+    "retrievedDate": "2026-07-20",
+    "measures": [
+      {
+        "id": "coverage-gap-1mi",
+        "label": "Block groups with no cooling center within 1 mile",
+        "display": "355 of 789 (45%)",
+        "value": 355,
+        "outOf": 789,
+        "owner": "City of Austin",
+        "source": "Cooling_Centers_Census_Block_Groups",
+        "sourceUrl": "https://services.arcgis.com/0L95CJ0VTaxqcmED/ArcGIS/rest/services/Cooling_Centers_Census_Block_Groups/FeatureServer/0",
+        "attribution": "City of Austin's published analysis, not SafeHeat's",
+        "derivation": "Count of features where Cooling_Center_1_Mi = 0, of 789 block groups.",
+        "caveat": "ArcGIS item reports no license. Cite the statistic; do not redistribute the rows."
+      },
+      {
+        "id": "hot-and-uncovered",
+        "label": "Block groups both hotter than +3 F above city average and uncovered at 1 mile",
+        "display": "107 block groups",
+        "value": 107,
+        "outOf": 789,
+        "owner": "City of Austin",
+        "source": "Cooling_Centers_Census_Block_Groups",
+        "sourceUrl": "https://services.arcgis.com/0L95CJ0VTaxqcmED/ArcGIS/rest/services/Cooling_Centers_Census_Block_Groups/FeatureServer/0",
+        "attribution": "City of Austin's published analysis, not SafeHeat's",
+        "derivation": "Features where Cooling_Center_1_Mi = 0 AND Temperature_Difference > 3.",
+        "caveat": "Land-surface temperature difference, historical Summer 2024; not current air temperature."
+      },
+      {
+        "id": "heat-products-per-year",
+        "label": "NWS heat watches, warnings, and advisories per year, Travis County",
+        "display": "10.9 average per year (range 1-41)",
+        "value": 10.9,
+        "rangeMin": 1,
+        "rangeMax": 41,
+        "periodCovered": "2016-2025",
+        "totalProducts": 109,
+        "owner": "National Weather Service via Iowa Environmental Mesonet VTEC archive",
+        "source": "IEM VTEC archive",
+        "sourceUrl": "https://mesonet.agron.iastate.edu/json/vtec_events_bystate.py",
+        "derivation": "Products where the IEM locations string includes Travis, summing VTEC codes EH.W, XH.W, EH.A, XH.A, and HT.Y.",
+        "caveat": "Counts issued products, not distinct heat days. Product names and thresholds changed over the period, so this is not a clean climate trend."
+      },
+      {
+        "id": "no-311-cooling-category",
+        "label": "Austin 311 request categories for cooling or heat relief",
+        "display": "0 of 2.5M requests",
+        "value": 0,
+        "outOf": 2500292,
+        "owner": "City of Austin",
+        "source": "Austin 311 Public Data (xwdj-i9he)",
+        "sourceUrl": "https://data.austintexas.gov/resource/xwdj-i9he.json",
+        "derivation": "Grouped all sr_type_desc values; no heat-relief or cooling category exists. Nearest matches are street lights, trees in right-of-way, debris, and water waste.",
+        "caveat": "A gap in the request taxonomy. NOT a claim that 311 is broken or that no one needs cooling."
+      }
+    ]
+  }
+}

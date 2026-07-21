@@ -1,0 +1,25 @@
+runConfig:
+  minInstances: 0
+  maxInstances: 3
+
+env:
+  - variable: APP_ENV
+    value: staging
+    availability:
+      - BUILD
+      - RUNTIME
+  - variable: NEXT_PUBLIC_APP_NAME
+    value: Public Meeting Follow-Up Kit (Staging)
+    availability:
+      - BUILD
+      - RUNTIME
+  - variable: NEXT_PUBLIC_APP_DESCRIPTION
+    value: Draft public meeting summaries, action trackers, FAQs, and follow-up plans from approved records.
+    availability:
+      - BUILD
+      - RUNTIME
+  - variable: NEXT_PUBLIC_SITE_URL
+    value: https://public-meeting-kit-staging.example
+    availability:
+      - BUILD
+      - RUNTIME

@@ -1,0 +1,14 @@
+services:
+  web:
+    build:
+      context: .
+    environment:
+      APP_ENV: production
+      LOG_LEVEL: info
+      NEXT_PUBLIC_APP_NAME: Public Meeting Follow-Up Kit
+      NEXT_PUBLIC_APP_DESCRIPTION: Local standalone-container verification for public meeting follow-up artifacts.
+      NEXT_PUBLIC_DEMO_MODE: "true"
+      PORT: 8080
+    ports:
+      - "8080:8080"
+    restart: unless-stopped

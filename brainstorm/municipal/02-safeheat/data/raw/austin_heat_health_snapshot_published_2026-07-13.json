@@ -1,0 +1,15 @@
+{
+  "source": "Austin Heat Awareness and Heat Illness Statistics",
+  "sourceUrl": "https://www.austintexas.gov/ready-central-texas/heat-awareness",
+  "coverageStart": "2026-05-01",
+  "coverageEnd": "2026-07-06",
+  "publishedAt": "2026-07-13T13:24:00-05:00",
+  "retrievedDate": "2026-07-19",
+  "heatAdvisoriesOrWarnings": 1,
+  "heatRelatedDeaths": 0,
+  "emergencyDepartmentVisits": 355,
+  "emsRecords": 118,
+  "extendedHoursActivations": 0,
+  "spatialLevel": "aggregate Austin/Travis public-health context; not neighborhood data",
+  "caveat": "Dated aggregate context. Emergency-department counts are preliminary/pre-diagnostic and must not be interpreted as person-level or zone-level records."
+}

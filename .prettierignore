@@ -1,0 +1,12 @@
+.next/
+node_modules/
+coverage/
+playwright-report/
+test-results/
+.firebase/
+package-lock.json
+archive/
+
+# Immutable raw source snapshots and their manifests. Byte-for-byte provenance
+# artifacts must not be reformatted; doing so would invalidate recorded checksums.
+brainstorm/municipal/02-safeheat/data/raw/downloaded/

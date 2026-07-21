@@ -1,0 +1,10 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Secure-by-default. Add the narrowest possible rules only after the
+    // selected idea's data model and authentication model are documented.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

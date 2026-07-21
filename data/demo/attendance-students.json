@@ -1,0 +1,37 @@
+[
+  {
+    "studentId": "STU-001",
+    "attendanceRate": 0.94,
+    "barrier": "none",
+    "recommendedAction": "monitor",
+    "source": "synthetic"
+  },
+  {
+    "studentId": "STU-002",
+    "attendanceRate": 0.88,
+    "barrier": "transportation",
+    "recommendedAction": "outreach",
+    "source": "synthetic"
+  },
+  {
+    "studentId": "STU-003",
+    "attendanceRate": 0.79,
+    "barrier": "health",
+    "recommendedAction": "support-plan",
+    "source": "synthetic"
+  },
+  {
+    "studentId": "STU-004",
+    "attendanceRate": 0.91,
+    "barrier": "caregiving",
+    "recommendedAction": "check-in",
+    "source": "synthetic"
+  },
+  {
+    "studentId": "STU-005",
+    "attendanceRate": 0.83,
+    "barrier": "unknown",
+    "recommendedAction": "outreach",
+    "source": "synthetic"
+  }
+]

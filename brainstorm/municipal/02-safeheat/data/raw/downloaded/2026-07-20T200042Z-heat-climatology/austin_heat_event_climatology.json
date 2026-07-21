@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-07-20T20:00:42Z",
+  "snapshotId": "2026-07-20T200042Z-heat-climatology",
+  "source": {
+    "name": "Iowa Environmental Mesonet VTEC archive",
+    "urlPattern": "https://mesonet.agron.iastate.edu/json/vtec_events_bystate.py?state=%s&year=%d&phenomena=%s&significance=%s",
+    "mirrorOf": "National Weather Service issued watch/warning/advisory products"
+  },
+  "geography": {
+    "state": "TX",
+    "countyNameFilter": "Travis"
+  },
+  "vtecNote": "NWS renamed Excessive Heat Warning to Extreme Heat Warning and the VTEC phenomena code changed from EH to XH beginning 2025. Both codes are queried and summed. Querying EH alone returns zero statewide Texas warnings for 2025-2026, which is a code-migration artifact, not a real zero.",
+  "countsByYear": {
+    "2016": {
+      "warning": 0,
+      "watch": 0,
+      "advisory": 5
+    },
+    "2017": {
+      "warning": 0,
+      "watch": 0,
+      "advisory": 4
+    },
+    "2018": {
+      "warning": 1,
+      "watch": 0,
+      "advisory": 2
+    },
+    "2019": {
+      "warning": 0,
+      "watch": 0,
+      "advisory": 14
+    },
+    "2020": {
+      "warning": 2,
+      "watch": 0,
+      "advisory": 8
+    },
+    "2021": {
+      "warning": 0,
+      "watch": 0,
+      "advisory": 1
+    },
+    "2022": {
+      "warning": 3,
+      "watch": 0,
+      "advisory": 9
+    },
+    "2023": {
+      "warning": 25,
+      "watch": 0,
+      "advisory": 16
+    },
+    "2024": {
+      "warning": 3,
+      "watch": 0,
+      "advisory": 13
+    },
+    "2025": {
+      "warning": 1,
+      "watch": 0,
+      "advisory": 2
+    },
+    "2026": {
+      "warning": 1,
+      "watch": 0,
+      "advisory": 1
+    }
+  },
+  "statewideCountsByYear": {
+    "2016": {
+      "warning": 4,
+      "watch": 1,
+      "advisory": 96
+    },
+    "2017": {
+      "warning": 5,
+      "watch": 0,
+      "advisory": 74
+    },
+    "2018": {
+      "warning": 8,
+      "watch": 1,
+      "advisory": 72
+    },
+    "2019": {
+      "warning": 11,
+      "watch": 5,
+      "advisory": 164
+    },
+    "2020": {
+      "warning": 27,
+      "watch": 2,
+      "advisory": 169
+    },
+    "2021": {
+      "warning": 5,
+      "watch": 3,
+      "advisory": 88
+    },
+    "2022": {
+      "warning": 29,
+      "watch": 5,
+      "advisory": 198
+    },
+    "2023": {
+      "warning": 209,
+      "watch": 22,
+      "advisory": 489
+    },
+    "2024": {
+      "warning": 58,
+      "watch": 2,
+      "advisory": 308
+    },
+    "2025": {
+      "warning": 4,
+      "watch": 0,
+      "advisory": 80
+    },
+    "2026": {
+      "warning": 8,
+      "watch": 4,
+      "advisory": 68
+    }
+  },
+  "summary": {
+    "completeYears": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "totalCompleteYears": 109,
+    "meanPerYear": 10.9,
+    "maxYear": 2023,
+    "maxCount": 41,
+    "minCount": 1,
+    "partialYear": 2026,
+    "partialYearCount": 2
+  },
+  "caveats": [
+    "Counts are issued products (VTEC events), not distinct calendar days under heat risk.",
+    "A single multi-day event can produce several products; a product can span several days.",
+    "County attribution uses the IEM 'locations' string; verify against zone TXZ192 / county TXC453 for a pilot.",
+    "Product thresholds and naming changed over the period; do not read the series as a pure climate trend."
+  ]
+}

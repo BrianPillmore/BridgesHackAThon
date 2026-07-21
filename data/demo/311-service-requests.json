@@ -1,0 +1,52 @@
+[
+  {
+    "id": "SR-1001",
+    "complaintType": "Street Condition",
+    "descriptor": "Pothole",
+    "borough": "Queens",
+    "latitude": 40.744,
+    "longitude": -73.918,
+    "ageHours": 46,
+    "source": "synthetic"
+  },
+  {
+    "id": "SR-1002",
+    "complaintType": "Street Condition",
+    "descriptor": "Pothole",
+    "borough": "Queens",
+    "latitude": 40.7441,
+    "longitude": -73.9182,
+    "ageHours": 43,
+    "source": "synthetic"
+  },
+  {
+    "id": "SR-1003",
+    "complaintType": "Heat or Hot Water",
+    "descriptor": "No Hot Water",
+    "borough": "Bronx",
+    "latitude": 40.846,
+    "longitude": -73.879,
+    "ageHours": 12,
+    "source": "synthetic"
+  },
+  {
+    "id": "SR-1004",
+    "complaintType": "Traffic Signal Condition",
+    "descriptor": "Pedestrian Signal",
+    "borough": "Brooklyn",
+    "latitude": 40.674,
+    "longitude": -73.997,
+    "ageHours": 28,
+    "source": "synthetic"
+  },
+  {
+    "id": "SR-1005",
+    "complaintType": "Sanitation Condition",
+    "descriptor": "Missed Collection",
+    "borough": "Manhattan",
+    "latitude": 40.812,
+    "longitude": -73.949,
+    "ageHours": 7,
+    "source": "synthetic"
+  }
+]

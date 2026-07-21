@@ -1,0 +1,9 @@
+{
+  "name": "SafeHeat",
+  "short_name": "SafeHeat",
+  "description": "Heat-response operations for verified cooling access, owners, and follow-up.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#07111f",
+  "theme_color": "#07111f"
+}

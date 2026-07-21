@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-07-20T19:52:10Z",
+  "snapshotId": "2026-07-20T195210Z-austin-arcgis-extra",
+  "userAgent": "SafeHeatResearch/0.3 (offline civic-data refresh; set HEATSAFE_USER_AGENT to a real contact)",
+  "discoveryNote": "Sources found by enumerating the Austin ArcGIS service directory. Not present in DATA_SOURCE_CATALOG.md as of 2026-07-19. All services report capabilities=Query (read-only).",
+  "entries": [
+    {
+      "sourceId": "austin_cooling_centers_block_groups",
+      "url": "https://services.arcgis.com/0L95CJ0VTaxqcmED/ArcGIS/rest/services/Cooling_Centers_Census_Block_Groups/FeatureServer/0/query?where=1%3D1&outFields=*&returnGeometry=true&outSR=4326&f=geojson",
+      "path": "data\\raw\\downloaded\\2026-07-20T195210Z-austin-arcgis-extra\\austin_cooling_centers_census_block_groups.geojson",
+      "retrievedAt": "2026-07-20T19:52:11Z",
+      "bytes": 4735051,
+      "sha256": "e5c1491173f006fdaba8986edf47f8637ad05a339a006b5912402aa1994c5292",
+      "contentType": "application/json; charset=utf-8",
+      "contentLengthHeader": "4735051",
+      "validation": {
+        "recordCount": 789,
+        "requiredFieldNonNullCounts": {
+          "GEOID": 789,
+          "Temperature_Difference": 789,
+          "Cooling_Center_Half_Mi": 789,
+          "Cooling_Center_1_Mi": 789
+        },
+        "geometryTypes": [
+          "Polygon"
+        ]
+      },
+      "notes": "City-published block-group layer that already joins heat difference, ACS elderly/disability (B18101), tree canopy, shade, Tree Equity Score, and cooling-center counts within 0.5/1.0 mi. Prior art for SafeHeat's access-gap concept. Confirm license and vintage before reuse.",
+      "status": "downloaded_validated"
+    },
+    {
+      "sourceId": "austin_cooling_centers_block_groups_metadata",
+      "url": "https://services.arcgis.com/0L95CJ0VTaxqcmED/ArcGIS/rest/services/Cooling_Centers_Census_Block_Groups/FeatureServer/0?f=pjson",
+      "path": "data\\raw\\downloaded\\2026-07-20T195210Z-austin-arcgis-extra\\austin_cooling_centers_census_block_groups_metadata.json",
+      "retrievedAt": "2026-07-20T19:52:12Z",
+      "bytes": 20063,
+      "sha256": "1cb7c35b269731ca6efb725f20475c70e02cc0dcfba6748915535eaa7cc0f38d",
+      "contentType": "application/json; charset=utf-8",
+      "contentLengthHeader": "20063",
+      "validation": {
+        "topLevelKeys": [
+          "advancedEditingCapabilities",
+          "advancedQueryAnalyticCapabilities",
+          "advancedQueryCapabilities",
+          "allowGeometryUpdates",
+          "allowTrueCurvesUpdates",
+          "cacheMaxAge",
+          "capabilities",
+          "collation",
+          "copyrightText",
+          "currentVersion",
+          "dateFieldsTimeReference",
+          "defaultVisibility",
+          "description",
+          "displayField",
+          "drawingInfo",
+          "editingInfo",
+          "enableNullGeometry",
+          "extent",
+          "fields",
+          "geometryProperties",
+          "geometryType",
+          "globalIdField",
+          "guidFormat",
+          "hasAttachments",
+          "hasContingentValuesDefinition",
+          "hasGeometryProperties",
+          "hasM",
+          "hasMetadata",
+          "hasStaticData",
+          "hasZ"
+        ]
+      },
+      "notes": "",
+      "status": "downloaded_validated"
+    },
+    {
+      "sourceId": "austin_climate_relief_cooling_centers",
+      "url": "https://services.arcgis.com/0L95CJ0VTaxqcmED/ArcGIS/rest/services/Climate_Relief/FeatureServer/0/query?where=1%3D1&outFields=*&returnGeometry=true&outSR=4326&f=geojson",
+      "path": "data\\raw\\downloaded\\2026-07-20T195210Z-austin-arcgis-extra\\austin_climate_relief_cooling_centers.geojson",
+      "retrievedAt": "2026-07-20T19:52:12Z",
+      "bytes": 19033,
+      "sha256": "b13bae1ce280254540608eaba8967b40f76de59b802fadb8b058d908d7f0e2fa",
+      "contentType": "application/json; charset=utf-8",
+      "contentLengthHeader": "19033",
+      "validation": {
+        "recordCount": 47,
+        "requiredFieldNonNullCounts": {
+          "Name": 47
+        },
+        "geometryTypes": [
+          "Point"
+        ]
+      },
+      "notes": "47 named cooling-center points. Larger than the 11-facility demo fixture. Administrative listing only; not event-time verified status.",
+      "status": "downloaded_validated"
+    },
+    {
+      "sourceId": "austin_heat_disparity_by_park",
+      "url": "https://services.arcgis.com/0L95CJ0VTaxqcmED/ArcGIS/rest/services/Heat_Disparity_by_Park/FeatureServer/1/query?where=1%3D1&outFields=*&returnGeometry=true&outSR=4326&f=geojson",
+      "path": "data\\raw\\downloaded\\2026-07-20T195210Z-austin-arcgis-extra\\austin_heat_disparity_by_park.geojson",
+      "retrievedAt": "2026-07-20T19:52:13Z",
+      "bytes": 2485252,
+      "sha256": "0521ec33a3794fb706150a39bbd2abb9a52ec6faebefcc95aa0fcfa8ddbee98c",
+      "contentType": "application/json; charset=utf-8",
+      "contentLengthHeader": "2485252",
+      "validation": {
+        "recordCount": 364,
+        "requiredFieldNonNullCounts": {
+          "LOCATION_NAME": 364,
+          "Temperature_Difference": 364
+        },
+        "geometryTypes": [
+          "MultiPolygon",
+          "Polygon"
+        ]
+      },
+      "notes": "364 parks with Summer 2024 temperature difference. Park-level companion to the block-group layer.",
+      "status": "downloaded_validated"
+    },
+    {
+      "sourceId": "austin_heat_watch_block_groups",
+      "url": "https://services.arcgis.com/0L95CJ0VTaxqcmED/ArcGIS/rest/services/heat_watch_blockgroups/FeatureServer/0/query?where=1%3D1&outFields=*&returnGeometry=true&outSR=4326&f=geojson",
+      "path": "data\\raw\\downloaded\\2026-07-20T195210Z-austin-arcgis-extra\\austin_heat_watch_block_groups.geojson",
+      "retrievedAt": "2026-07-20T19:52:14Z",
+      "bytes": 1104498,
+      "sha256": "258a0a037ed268833e06edcf8c5cbd6c246e82f482703bfc11b7046fb08bdaec",
+      "contentType": "application/json; charset=utf-8",
+      "contentLengthHeader": "1104498",
+      "validation": {
+        "recordCount": 185,
+        "requiredFieldNonNullCounts": {},
+        "geometryTypes": [
+          "MultiPolygon",
+          "Polygon"
+        ]
+      },
+      "notes": "Heat Watch campaign block groups on 2010 census geography (GEOID10). Do not join to 2020 GEOIDs without a crosswalk.",
+      "status": "downloaded_validated"
+    },
+    {
+      "sourceId": "austin_cooling_centers_gaps",
+      "url": "https://services.arcgis.com/0L95CJ0VTaxqcmED/ArcGIS/rest/services/Cooling_Centers_Gaps/FeatureServer/0/query?where=1%3D1&outFields=*&returnGeometry=true&outSR=4326&f=geojson",
+      "path": "data\\raw\\downloaded\\2026-07-20T195210Z-austin-arcgis-extra\\austin_cooling_centers_gaps.geojson",
+      "retrievedAt": "2026-07-20T19:52:15Z",
+      "bytes": 7775673,
+      "sha256": "5d0f7cf5e5da811cc7ab9c19c416ba5d21f51bf223e2e66c7b54fbff8453028a",
+      "contentType": "application/json; charset=utf-8",
+      "contentLengthHeader": "7775673",
+      "validation": {
+        "recordCount": 2,
+        "requiredFieldNonNullCounts": {},
+        "geometryTypes": [
+          "MultiPolygon"
+        ]
+      },
+      "notes": "Only 2 jurisdiction-level buffer polygons. Far coarser than the name suggests.",
+      "status": "downloaded_validated"
+    },
+    {
+      "sourceId": "austin_arcgis_service_directory",
+      "url": "https://services.arcgis.com/0L95CJ0VTaxqcmED/ArcGIS/rest/services?f=json",
+      "path": "data\\raw\\downloaded\\2026-07-20T195210Z-austin-arcgis-extra\\austin_arcgis_service_directory.json",
+      "retrievedAt": "2026-07-20T19:52:20Z",
+      "bytes": 383418,
+      "sha256": "0cc78d22dd5c14bc6dfd7a221af05af89ae2af7a89549cfce34133a616d649aa",
+      "contentType": "application/json; charset=utf-8",
+      "contentLengthHeader": "383418",
+      "validation": {
+        "topLevelKeys": [
+          "currentVersion",
+          "services"
+        ]
+      },
+      "notes": "Full City of Austin ArcGIS Online feature-service directory (~2128 services) for future discovery.",
+      "status": "downloaded_validated"
+    }
+  ]
+}
