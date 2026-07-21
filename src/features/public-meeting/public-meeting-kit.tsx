@@ -13,10 +13,11 @@ import {
   Send,
   ShieldCheck,
   Sparkles,
+  Trash2,
   Users,
   type LucideIcon,
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type ArtifactTab = "summary" | "actions" | "faq" | "comms" | "review";
 
@@ -45,6 +46,8 @@ type ActionItem = {
   source: string;
 };
 
+const storageKey = "public-meeting-follow-up-kit:draft:v1";
+
 const sampleInputs: MeetingInputs = {
   meetingName: "Community Mobility Improvements Listening Session",
   jurisdiction: "Riverton Department of Transportation",
@@ -60,6 +63,20 @@ const sampleInputs: MeetingInputs = {
     "Priya Shah - Public engagement lead\nMarcus Lee - Traffic engineering manager\nElena Garcia - Communications manager\nJordan Kim - Capital planning analyst",
   communicationsGuidance:
     "Use plain language. Do not imply that a final design decision has been made. Clearly separate confirmed commitments from items under review. Include a translation note, ADA accommodation contact, and a human review step before publication.",
+  reviewRequired: true,
+  plainLanguage: true,
+};
+
+const blankInputs: MeetingInputs = {
+  meetingName: "",
+  jurisdiction: "",
+  meetingDate: "",
+  audience: "",
+  agenda: "",
+  notes: "",
+  commitments: "",
+  owners: "",
+  communicationsGuidance: "",
   reviewRequired: true,
   plainLanguage: true,
 };
@@ -165,11 +182,84 @@ function keywordQuestions(agendaLines: string[], notes: string) {
   return questions;
 }
 
+function detectSensitiveContent(inputs: MeetingInputs) {
+  const source = [inputs.agenda, inputs.notes, inputs.commitments, inputs.owners].join("\n");
+  const findings = [];
+
+  if (/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i.test(source)) {
+    findings.push("Possible email address detected");
+  }
+
+  if (/\b(?:\+?1[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b/.test(source)) {
+    findings.push("Possible phone number detected");
+  }
+
+  if (
+    /\b\d{1,6}\s+[A-Za-z0-9.'-]+(?:\s+[A-Za-z0-9.'-]+){0,4}\s+(?:Street|St|Avenue|Ave|Road|Rd|Drive|Dr|Lane|Ln|Court|Ct|Boulevard|Blvd)\b/i.test(
+      source,
+    )
+  ) {
+    findings.push("Possible precise street address detected");
+  }
+
+  if (
+    /\b(student|patient|medical|diagnosis|immigration|enforcement|complaint id)\b/i.test(source)
+  ) {
+    findings.push("Sensitive public-sector topic keyword detected");
+  }
+
+  return findings;
+}
+
+function buildSourceChecks(inputs: MeetingInputs, actions: ActionItem[]) {
+  return [
+    {
+      label: "Agenda supplied",
+      passed: inputs.agenda.trim().length > 0,
+      fix: "Paste the public agenda or meeting notice.",
+    },
+    {
+      label: "Approved notes or transcript supplied",
+      passed: inputs.notes.trim().length > 0,
+      fix: "Paste approved notes, transcript excerpts, or clerk-approved summary.",
+    },
+    {
+      label: "Commitments parsed",
+      passed: actions.length > 0,
+      fix: "Add each commitment on its own line.",
+    },
+    {
+      label: "Owners supplied",
+      passed: inputs.owners.trim().length > 0,
+      fix: "Add owner names and roles before release.",
+    },
+    {
+      label: "Communications guidance supplied",
+      passed: inputs.communicationsGuidance.trim().length > 0,
+      fix: "Add tone, accessibility, translation, approval, and disclaimer guidance.",
+    },
+    {
+      label: "Human review required",
+      passed: inputs.reviewRequired,
+      fix: "Require a staff review gate before publication.",
+    },
+  ];
+}
+
 function buildArtifacts(inputs: MeetingInputs) {
   const agendaLines = splitLines(inputs.agenda);
   const owners = parseOwnerDirectory(inputs.owners);
   const actions = parseCommitments(inputs.commitments, owners);
   const questions = keywordQuestions(agendaLines, inputs.notes);
+  const sensitiveFindings = detectSensitiveContent(inputs);
+  const sourceChecks = buildSourceChecks(inputs, actions);
+  const passedChecks = sourceChecks.filter((check) => check.passed).length;
+  const releaseStatus =
+    sensitiveFindings.length > 0
+      ? "Hold for privacy review"
+      : passedChecks === sourceChecks.length
+        ? "Ready for human review"
+        : "Needs source material";
   const firstNote = firstSentence(inputs.notes);
   const ownerNames = owners.map((owner) => owner.name).join(", ") || "No owners supplied";
   const milestone =
@@ -198,6 +288,9 @@ function buildArtifacts(inputs: MeetingInputs) {
     "",
     "Decision status",
     "This draft must not imply a final decision unless the approved record confirms one.",
+    "",
+    "Release status",
+    releaseStatus,
   ].join("\n");
 
   const actionTracker = [
@@ -243,6 +336,23 @@ function buildArtifacts(inputs: MeetingInputs) {
     `Owner directory: ${ownerNames}`,
   ].join("\n");
 
+  const sourceReview = [
+    "Source readiness",
+    "",
+    `Release status: ${releaseStatus}`,
+    `Checks passed: ${passedChecks} of ${sourceChecks.length}`,
+    "",
+    ...sourceChecks.flatMap((check) => [
+      `${check.passed ? "[x]" : "[ ]"} ${check.label}`,
+      check.passed ? "Source available." : `Fix: ${check.fix}`,
+      "",
+    ]),
+    "Sensitive-content screen",
+    ...(sensitiveFindings.length > 0
+      ? sensitiveFindings.map((finding) => `- ${finding}`)
+      : ["- No obvious email, phone, precise address, or protected-topic keyword detected."]),
+  ].join("\n");
+
   const reviewChecklist = [
     "Government-ready review checklist",
     "",
@@ -258,6 +368,8 @@ function buildArtifacts(inputs: MeetingInputs) {
     "[ ] Owners and dates are confirmed by the responsible team",
     "[ ] Accessibility, translation, public records, and contact language is present",
     "[ ] The communication plan avoids implying unapproved decisions",
+    "",
+    sourceReview,
   ].join("\n");
 
   return {
@@ -265,6 +377,10 @@ function buildArtifacts(inputs: MeetingInputs) {
     owners,
     actions,
     questions,
+    sensitiveFindings,
+    sourceChecks,
+    passedChecks,
+    releaseStatus,
     summary,
     actionTracker,
     faq,
@@ -279,6 +395,11 @@ function outputForTab(tab: ArtifactTab, artifacts: ReturnType<typeof buildArtifa
   if (tab === "faq") return artifacts.faq;
   if (tab === "comms") return artifacts.communicationsPlan;
   return artifacts.reviewChecklist;
+}
+
+function getDraftStorage() {
+  if (typeof window === "undefined" || !window.localStorage) return undefined;
+  return window.localStorage;
 }
 
 function Field({
@@ -375,6 +496,7 @@ export function PublicMeetingKit() {
   const [inputs, setInputs] = useState<MeetingInputs>(sampleInputs);
   const [activeTab, setActiveTab] = useState<ArtifactTab>("summary");
   const [copied, setCopied] = useState(false);
+  const [saved, setSaved] = useState(false);
   const artifacts = useMemo(() => buildArtifacts(inputs), [inputs]);
   const currentOutput = outputForTab(activeTab, artifacts);
   const completionScore = [
@@ -384,6 +506,29 @@ export function PublicMeetingKit() {
     inputs.owners,
     inputs.communicationsGuidance,
   ].filter((value) => value.trim().length > 0).length;
+
+  useEffect(() => {
+    const storage = getDraftStorage();
+    const stored = storage?.getItem(storageKey);
+    if (!stored) return;
+
+    try {
+      const parsed = JSON.parse(stored) as MeetingInputs;
+      setInputs({ ...sampleInputs, ...parsed });
+    } catch {
+      storage?.removeItem(storageKey);
+    }
+  }, []);
+
+  useEffect(() => {
+    const storage = getDraftStorage();
+    if (!storage) return;
+
+    storage.setItem(storageKey, JSON.stringify(inputs));
+    setSaved(true);
+    const timer = window.setTimeout(() => setSaved(false), 1200);
+    return () => window.clearTimeout(timer);
+  }, [inputs]);
 
   function updateInput(id: TextInputKey, value: string) {
     setInputs((current) => ({ ...current, [id]: value }));
@@ -399,10 +544,13 @@ export function PublicMeetingKit() {
     window.setTimeout(() => setCopied(false), 1600);
   }
 
-  function exportPacket() {
-    const payload = {
+  function buildPacket() {
+    return {
       generatedAt: new Date().toISOString(),
+      releaseStatus: artifacts.releaseStatus,
       inputs,
+      sourceChecks: artifacts.sourceChecks,
+      sensitiveFindings: artifacts.sensitiveFindings,
       outputs: {
         summary: artifacts.summary,
         actions: artifacts.actionTracker,
@@ -411,6 +559,16 @@ export function PublicMeetingKit() {
         reviewChecklist: artifacts.reviewChecklist,
       },
     };
+  }
+
+  async function copyPacket() {
+    await navigator.clipboard?.writeText(JSON.stringify(buildPacket(), null, 2));
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1600);
+  }
+
+  function exportPacket() {
+    const payload = buildPacket();
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
@@ -451,6 +609,14 @@ export function PublicMeetingKit() {
               <div className="rounded-md border-2 border-slate-950 bg-violet-100 p-2">
                 {artifacts.questions.length} FAQs
               </div>
+            </div>
+            <div className="mt-3 rounded-md border-2 border-slate-950 bg-slate-50 p-3">
+              <p className="text-xs font-black uppercase text-slate-600">Release status</p>
+              <p className="text-sm font-black">{artifacts.releaseStatus}</p>
+              <p className="mt-1 text-xs font-bold text-slate-600">
+                {artifacts.passedChecks} of {artifacts.sourceChecks.length} source checks passed
+                {saved ? " · draft saved locally" : ""}
+              </p>
             </div>
           </div>
 
@@ -569,8 +735,18 @@ export function PublicMeetingKit() {
                 >
                   Load sample
                 </IconButton>
+                <IconButton
+                  icon={Trash2}
+                  onClick={() => setInputs(blankInputs)}
+                  variant="secondary"
+                >
+                  Blank draft
+                </IconButton>
                 <IconButton icon={Copy} onClick={copyCurrentOutput}>
                   {copied ? "Copied" : "Copy"}
+                </IconButton>
+                <IconButton icon={ClipboardList} onClick={copyPacket} variant="secondary">
+                  Copy packet
                 </IconButton>
                 <IconButton icon={Download} onClick={exportPacket} variant="secondary">
                   Export
@@ -655,6 +831,28 @@ export function PublicMeetingKit() {
                     information, and confirm owners before sharing externally.
                   </p>
                 </div>
+                <div className="mt-3 grid gap-2">
+                  {artifacts.sourceChecks.map((check) => (
+                    <div
+                      className={`rounded-lg border-2 border-slate-950 p-2 text-xs font-black ${
+                        check.passed ? "bg-emerald-100" : "bg-white"
+                      }`}
+                      key={check.label}
+                    >
+                      {check.passed ? "Pass" : "Needs work"}: {check.label}
+                    </div>
+                  ))}
+                </div>
+                {artifacts.sensitiveFindings.length > 0 ? (
+                  <div className="mt-3 rounded-lg border-2 border-red-950 bg-red-100 p-3">
+                    <p className="text-sm font-black text-red-950">Privacy review flags</p>
+                    <ul className="mt-2 grid gap-1 text-xs font-bold text-red-950">
+                      {artifacts.sensitiveFindings.map((finding) => (
+                        <li key={finding}>{finding}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
               </div>
 
               <div className="rounded-lg border-2 border-slate-950 bg-white p-4 shadow-[5px_5px_0_#0f172a]">
